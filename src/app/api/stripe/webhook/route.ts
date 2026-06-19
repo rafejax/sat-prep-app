@@ -31,11 +31,17 @@ export async function POST(req: NextRequest) {
     await admin!.from("profiles").update(update).eq("stripe_customer_id", customerId);
   }
 
+  // Helper to extract period end — location changed in newer Stripe SDK versions
+  function periodEnd(sub: Stripe.Subscription): number | undefined {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (sub as any).current_period_end ?? sub.items?.data?.[0]?.current_period_end;
+  }
+
   switch (event.type) {
     case "customer.subscription.created":
     case "customer.subscription.updated": {
       const sub = event.data.object as Stripe.Subscription;
-      await updateByCustomer(sub.customer as string, sub.status, sub.current_period_end);
+      await updateByCustomer(sub.customer as string, sub.status, periodEnd(sub));
       break;
     }
     case "customer.subscription.deleted": {
@@ -46,9 +52,8 @@ export async function POST(req: NextRequest) {
     case "checkout.session.completed": {
       const session = event.data.object as Stripe.Session;
       if (session.mode === "subscription" && session.customer) {
-        // Status will be updated by the subscription.created event, but also handle here
         const sub = await stripe.subscriptions.retrieve(session.subscription as string);
-        await updateByCustomer(session.customer as string, sub.status, sub.current_period_end);
+        await updateByCustomer(session.customer as string, sub.status, periodEnd(sub));
       }
       break;
     }
