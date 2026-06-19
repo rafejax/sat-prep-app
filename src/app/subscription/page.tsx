@@ -115,7 +115,7 @@ export default function SubscriptionPage() {
                 <div>
                   <p className="text-xs uppercase tracking-widest text-slate-500">Current Plan</p>
                   <p className="text-xl font-black text-white">
-                    {isActive ? "SATisfied Premium" : "Free"}
+                    {isActive ? "SATisfied Premium" : "No Active Plan"}
                   </p>
                 </div>
                 {status && (
@@ -132,15 +132,11 @@ export default function SubscriptionPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={isActive ? "text-green-400" : "text-slate-600"}>✓</span>
-                  Leaderboard access
+                  Weekly &amp; all-time leaderboard
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={isActive ? "text-green-400" : "text-slate-600"}>✓</span>
-                  Custom AI-generated boards from your study guides
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className={isActive ? "text-green-400" : "text-slate-600"}>✓</span>
-                  Save up to 10 custom boards
+                  New questions every day
                 </div>
               </div>
 
