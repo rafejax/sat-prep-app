@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
       break;
     }
     case "checkout.session.completed": {
-      const session = event.data.object as Stripe.Session;
+      const session = event.data.object as Stripe.Checkout.Session;
       if (session.mode === "subscription" && session.customer) {
         const sub = await stripe.subscriptions.retrieve(session.subscription as string);
         await updateByCustomer(session.customer as string, sub.status, periodEnd(sub));
