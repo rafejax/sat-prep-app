@@ -125,20 +125,22 @@ export default function SubscriptionPage() {
                 )}
               </div>
 
-              <div className="mb-6 space-y-2 text-sm text-slate-400">
-                <div className="flex items-center gap-2">
-                  <span className={isActive ? "text-green-400" : "text-slate-600"}>✓</span>
-                  PSAT &amp; SAT daily practice boards
+              {isActive && (
+                <div className="mb-6 space-y-2 text-sm text-slate-400">
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-400">✓</span>
+                    PSAT &amp; SAT daily practice boards
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-400">✓</span>
+                    Weekly &amp; all-time leaderboard
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-green-400">✓</span>
+                    New questions every day
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className={isActive ? "text-green-400" : "text-slate-600"}>✓</span>
-                  Weekly &amp; all-time leaderboard
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className={isActive ? "text-green-400" : "text-slate-600"}>✓</span>
-                  New questions every day
-                </div>
-              </div>
+              )}
 
               {!isActive && (
                 <div className="mb-4 rounded-xl border border-yellow-600/30 bg-yellow-950/20 px-4 py-3 text-center">

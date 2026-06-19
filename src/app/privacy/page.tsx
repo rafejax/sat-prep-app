@@ -26,9 +26,8 @@ export default function PrivacyPage() {
               <li><strong className="text-white">Email Address:</strong> Required for account creation, authentication, billing, and account-related communications.</li>
               <li><strong className="text-white">Password:</strong> Never stored in plain text. Securely hashed by our authentication provider, Supabase (bcrypt).</li>
               <li><strong className="text-white">Billing Information:</strong> We do not collect or store card numbers or payment credentials. Payment is processed by Stripe, Inc. We receive only a customer ID and subscription status from Stripe to manage your access.</li>
-              <li><strong className="text-white">Uploaded Files:</strong> When you use the Custom Boards feature, the text content of your uploaded file is sent to our AI provider (Anthropic) to generate quiz questions. Files are not permanently stored on our servers; extracted text is retained only transiently during processing. See Section 7 for details.</li>
               <li><strong className="text-white">Game Data:</strong> Practice scores, modes (PSAT/SAT), and submission dates are stored to display on public leaderboards.</li>
-              <li><strong className="text-white">Local Storage:</strong> In-progress game state (name, score, answered questions, saved custom boards) is stored in your browser's localStorage and never transmitted to our servers except when a final score is submitted.</li>
+              <li><strong className="text-white">Local Storage:</strong> In-progress game state (name, score, answered questions) is stored in your browser's localStorage and never transmitted to our servers except when a final score is submitted.</li>
             </ul>
           </section>
 
@@ -38,7 +37,6 @@ export default function PrivacyPage() {
               <li>To provide access to the App and authenticate your account.</li>
               <li>To process and manage your subscription through Stripe.</li>
               <li>To display your score on the public leaderboard using only your chosen display name.</li>
-              <li>To generate AI-based quiz questions from files you upload.</li>
               <li>To send transactional emails (subscription receipts, billing alerts).</li>
               <li>We do not sell, rent, or share your personal information with third parties for marketing or advertising purposes.</li>
             </ul>
@@ -68,43 +66,31 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">7. AI-Powered Custom Boards</h2>
-            <p>When you use the Custom Boards feature:</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>Text extracted from your uploaded file is sent to <strong className="text-white">Anthropic, PBC</strong> (anthropic.com), the company that powers our AI question generator (Claude).</li>
-              <li>Uploaded files are processed server-side and are not permanently stored. Extracted text (up to 12,000 characters) is transmitted to Anthropic to generate questions and is subject to Anthropic's <a href="https://www.anthropic.com/legal/privacy" className="text-blue-400 hover:text-blue-300" target="_blank" rel="noopener noreferrer">Privacy Policy</a>.</li>
-              <li>Generated questions and saved custom boards are stored only in your browser's localStorage; they are not sent to our servers.</li>
-              <li>Do not upload files containing sensitive personal information, confidential business data, or content belonging to others without permission.</li>
-            </ul>
+            <h2 className="mb-2 text-lg font-bold text-white">7. Data Retention</h2>
+            <p>Leaderboard scores are retained indefinitely to support all-time rankings. Account and profile data is retained until you request deletion. Subscription status is retained while your account exists. In-browser localStorage data (game progress) persists until you clear your browser data or it is reset automatically at the start of a new day.</p>
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">8. Data Retention</h2>
-            <p>Leaderboard scores are retained indefinitely to support all-time rankings. Account and profile data is retained until you request deletion. Subscription status is retained while your account exists. Files uploaded for custom board generation are not retained after processing. In-browser localStorage data (game progress, custom boards) persists until you clear your browser data or we clear it automatically on a new day.</p>
-          </section>
-
-          <section>
-            <h2 className="mb-2 text-lg font-bold text-white">9. Third-Party Services</h2>
+            <h2 className="mb-2 text-lg font-bold text-white">8. Third-Party Services</h2>
             <ul className="list-disc space-y-1 pl-5">
               <li><strong className="text-white">Supabase</strong> (supabase.com) — database and authentication.</li>
               <li><strong className="text-white">Stripe, Inc.</strong> (stripe.com) — payment processing and subscription management.</li>
-              <li><strong className="text-white">Anthropic, PBC</strong> (anthropic.com) — AI question generation for Custom Boards.</li>
             </ul>
             <p className="mt-2">We do not use advertising networks, analytics trackers, or social media pixels.</p>
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">10. Security</h2>
+            <h2 className="mb-2 text-lg font-bold text-white">9. Security</h2>
             <p>We take reasonable technical and organizational measures to protect your data, including encrypted transmission (HTTPS), secure password hashing, and restricted access controls. Webhook communications from Stripe are verified using cryptographic signatures. No system is completely secure; we cannot guarantee absolute security.</p>
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">11. Changes to This Policy</h2>
+            <h2 className="mb-2 text-lg font-bold text-white">10. Changes to This Policy</h2>
             <p>We may update this Privacy Policy from time to time. We will notify registered users by email and update the effective date above. Continued use of the App after changes constitutes acceptance of the revised policy.</p>
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">12. Contact Us</h2>
+            <h2 className="mb-2 text-lg font-bold text-white">11. Contact Us</h2>
             <p>For privacy questions, data requests, or concerns, contact us at:<br />
             <span className="text-blue-400">support@satisfied.app</span></p>
           </section>

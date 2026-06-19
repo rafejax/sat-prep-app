@@ -36,7 +36,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="mb-2 text-lg font-bold text-white">5. Subscription and Billing</h2>
-            <p>Access to SATisfied's full feature set — including PSAT/SAT daily boards, leaderboards, and Custom Boards — requires an active paid subscription at <strong className="text-white">$1.99 per month</strong>. New subscribers receive a <strong className="text-white">7-day free trial</strong>; no charge is made until the trial ends.</p>
+            <p>Access to SATisfied's full feature set — including PSAT/SAT daily boards and leaderboards — requires an active paid subscription at <strong className="text-white">$1.99 per month</strong>. New subscribers receive a <strong className="text-white">7-day free trial</strong>; no charge is made until the trial ends.</p>
             <ul className="mt-2 list-disc space-y-1 pl-5">
               <li>Subscriptions renew automatically each billing period until canceled.</li>
               <li>You may cancel at any time through your subscription management page or the Stripe billing portal; access continues until the end of the current paid period.</li>
@@ -47,48 +47,37 @@ export default function TermsPage() {
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">6. File Uploads and AI-Generated Content</h2>
-            <p>The Custom Boards feature allows you to upload study material files (PDF, Word .docx, or plain text) to generate AI-created quiz questions. By uploading a file, you represent that:</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              <li>You own the content or have the right to use it for this purpose.</li>
-              <li>The file does not contain personally identifiable information about other people, confidential data, or content that violates any third party's rights.</li>
-            </ul>
-            <p className="mt-2">Uploaded files are processed transiently to generate questions and are not permanently stored on our servers after processing. Extracted text may be sent to our AI provider (Anthropic) to generate questions; see our <Link href="/privacy" className="text-blue-400 hover:text-blue-300">Privacy Policy</Link> for details.</p>
-            <p className="mt-2"><strong className="text-white">AI-generated questions are for practice purposes only.</strong> They may contain inaccuracies, omissions, or errors. Always verify AI-generated content against your original study materials. We make no warranty regarding the accuracy, completeness, or educational appropriateness of AI-generated content.</p>
+            <h2 className="mb-2 text-lg font-bold text-white">6. Acceptable Use</h2>
+            <p>You agree not to: (a) use the App for any unlawful purpose; (b) attempt to gain unauthorized access to any part of the App or its systems; (c) submit false, misleading, or offensive content; (d) interfere with the App's operation, including through automated scripts or bots on the leaderboard; or (e) reverse-engineer or resell any part of the App.</p>
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">7. Acceptable Use</h2>
-            <p>You agree not to: (a) use the App for any unlawful purpose; (b) attempt to gain unauthorized access to any part of the App or its systems; (c) submit false, misleading, or offensive content; (d) upload files containing malware, exploits, or harmful content; (e) interfere with the App's operation, including through automated scripts or bots on the leaderboard; or (f) reverse-engineer or resell any part of the App or its AI-generated content.</p>
-          </section>
-
-          <section>
-            <h2 className="mb-2 text-lg font-bold text-white">8. Leaderboard</h2>
+            <h2 className="mb-2 text-lg font-bold text-white">7. Leaderboard</h2>
             <p>Scores and display names submitted to the leaderboard are publicly visible. We reserve the right to remove any entry that we determine, in our sole discretion, to be fraudulent, offensive, or otherwise in violation of these terms. Weekly leaderboards reset each Monday at midnight Eastern Time (ET). Daily questions rotate at midnight ET.</p>
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">9. Intellectual Property</h2>
-            <p>All original content, including curated question text, explanations, code, and design, is the property of SATisfied's creators and is protected by applicable intellectual property laws. You may not reproduce, distribute, or create derivative works without prior written permission. AI-generated custom board content is generated on your behalf for your personal educational use; you may not redistribute it commercially.</p>
+            <h2 className="mb-2 text-lg font-bold text-white">8. Intellectual Property</h2>
+            <p>All original content, including curated question text, explanations, code, and design, is the property of SATisfied's creators and is protected by applicable intellectual property laws. You may not reproduce, distribute, or create derivative works without prior written permission.</p>
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">10. Disclaimer of Warranties</h2>
-            <p>The App is provided "as is" and "as available" without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the App will be error-free or uninterrupted, or that AI-generated content will be accurate.</p>
+            <h2 className="mb-2 text-lg font-bold text-white">9. Disclaimer of Warranties</h2>
+            <p>The App is provided "as is" and "as available" without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the App will be error-free or uninterrupted.</p>
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">11. Limitation of Liability</h2>
-            <p>To the fullest extent permitted by law, SATisfied and its creators shall not be liable for any indirect, incidental, special, or consequential damages arising out of your use of, or inability to use, the App, including any reliance on AI-generated content.</p>
+            <h2 className="mb-2 text-lg font-bold text-white">10. Limitation of Liability</h2>
+            <p>To the fullest extent permitted by law, SATisfied and its creators shall not be liable for any indirect, incidental, special, or consequential damages arising out of your use of, or inability to use, the App.</p>
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">12. Governing Law</h2>
+            <h2 className="mb-2 text-lg font-bold text-white">11. Governing Law</h2>
             <p>These Terms are governed by the laws of the State of Florida, without regard to conflict of law principles. Any disputes shall be resolved in the courts of Florida.</p>
           </section>
 
           <section>
-            <h2 className="mb-2 text-lg font-bold text-white">13. Contact</h2>
+            <h2 className="mb-2 text-lg font-bold text-white">12. Contact</h2>
             <p>For questions about these Terms, billing disputes, or data requests, please contact us at <span className="text-blue-400">support@satisfied.app</span>.</p>
           </section>
         </div>
