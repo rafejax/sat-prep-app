@@ -7,12 +7,11 @@ import Leaderboard from "@/components/Leaderboard";
 import ResultScreen from "@/components/ResultScreen";
 import AuthModal from "@/components/AuthModal";
 import AudioControls from "@/components/AudioControls";
-import CustomBoards from "@/components/CustomBoards";
 import { loadSave, writeSave, GameSave } from "@/lib/storage";
 import { AuthUser, getSession, signOut, onAuthChange } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 
-type Section  = "home" | "psat" | "sat" | "leaderboard" | "custom";
+type Section  = "home" | "psat" | "sat" | "leaderboard";
 type GamePhase = "name-entry" | "playing" | "result";
 type AnswerStatus = "correct" | "wrong";
 
@@ -317,7 +316,6 @@ const NAV_ITEMS: { id: Section; label: string; icon: string }[] = [
   { id: "psat",        label: "PSAT",   icon: "📘" },
   { id: "sat",         label: "SAT",    icon: "📗" },
   { id: "leaderboard", label: "Ranks",  icon: "🏆" },
-  { id: "custom",      label: "Custom", icon: "✨" },
 ];
 
 // ── Root ───────────────────────────────────────────────────────────────────────
@@ -407,13 +405,6 @@ export default function App() {
           )}
           {section === "leaderboard" && (
             <div className="px-4 py-6"><Leaderboard /></div>
-          )}
-          {section === "custom" && (
-            <CustomBoards
-              user={user ? { id: user.id, email: user.email, displayName: user.displayName } : null}
-              subscribed={subscribed}
-              onShowAuth={() => setShowAuth(true)}
-            />
           )}
         </div>
       </main>
