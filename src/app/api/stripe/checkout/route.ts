@@ -32,6 +32,16 @@ export async function POST(req: NextRequest) {
     customerId = profile?.stripe_customer_id ?? undefined;
   }
 
+  // If we have a stored customer ID, verify it's valid in the current mode (test vs live)
+  if (customerId) {
+    try {
+      await stripe.customers.retrieve(customerId);
+    } catch {
+      // Customer doesn't exist in this mode — create a fresh one
+      customerId = undefined;
+    }
+  }
+
   if (!customerId) {
     const customer = await stripe.customers.create({
       email,
