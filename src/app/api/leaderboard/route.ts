@@ -45,7 +45,15 @@ export async function GET(req: NextRequest) {
 
     const { data, error } = await query;
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json(data);
+
+    // Deduplicate: keep only the best score per player
+    const byPlayer = new Map<string, typeof data[0]>();
+    for (const entry of data ?? []) {
+      const existing = byPlayer.get(entry.player_name);
+      if (!existing || entry.score > existing.score) byPlayer.set(entry.player_name, entry);
+    }
+    const deduped = [...byPlayer.values()].sort((a, b) => b.score - a.score).slice(0, 50);
+    return NextResponse.json(deduped);
   }
 
   // In-memory fallback

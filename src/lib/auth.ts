@@ -24,6 +24,12 @@ export async function signIn(email: string, password: string) {
   return data;
 }
 
+export async function forgotPassword(email: string, redirectTo: string) {
+  if (!supabase) throw new Error("Supabase not configured");
+  const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
+  if (error) throw error;
+}
+
 export async function signOut() {
   if (!supabase) return;
   await supabase.auth.signOut();

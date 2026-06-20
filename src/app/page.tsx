@@ -77,9 +77,9 @@ function HomeSection({
   const [satSave,  setSatSave]  = useState<GameSave | null>(null);
 
   useEffect(() => {
-    setPsatSave(loadSave("PSAT"));
-    setSatSave(loadSave("SAT"));
-  }, []);
+    setPsatSave(loadSave("PSAT", user?.id));
+    setSatSave(loadSave("SAT", user?.id));
+  }, [user?.id]);
 
   const badge = (save: GameSave | null) => {
     if (!save) return null;
@@ -179,7 +179,14 @@ function GameSection({ mode, user, subscribed, onBack, onGoLeaderboard, onShowAu
   const [mounted, setMounted]         = useState(false);
 
   useEffect(() => {
-    const save = loadSave(mode);
+    // Reset state when user switches accounts
+    setPlayerName("");
+    setScore(0);
+    setAnswered({});
+    setSubmitted(false);
+    setPhase("name-entry");
+
+    const save = loadSave(mode, user?.id);
     if (save) {
       setPlayerName(save.playerName);
       setScore(save.score);
@@ -188,11 +195,10 @@ function GameSection({ mode, user, subscribed, onBack, onGoLeaderboard, onShowAu
       if (save.completed) setPhase("result");
       else if (save.playerName) setPhase("playing");
     } else if (user) {
-      // Pre-fill name from account
       setPlayerName(user.displayName);
     }
     setMounted(true);
-  }, [mode, user]);
+  }, [mode, user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const persist = useCallback(
     (overrides: Partial<Omit<GameSave, "date" | "mode">>) => {
@@ -203,9 +209,9 @@ function GameSection({ mode, user, subscribed, onBack, onGoLeaderboard, onShowAu
         answered: overrides.answered ?? answered,
         completed: overrides.completed ?? (phase === "result"),
         submittedToLeaderboard: overrides.submittedToLeaderboard ?? submitted,
-      });
+      }, user?.id);
     },
-    [mode, playerName, score, answered, phase, submitted]
+    [mode, playerName, score, answered, phase, submitted, user?.id]
   );
 
   const firstPersist = useRef(true);

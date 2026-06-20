@@ -74,7 +74,7 @@ const FAQS: FAQItem[] = [
     q: "How do I contact support?",
     a: (
       <>
-        Email us at <span className="text-blue-400">support@satisfied.app</span>. For billing questions or disputes, please include your account email and a description of the issue.
+        Call or text us at <span className="text-blue-400">(424) 216-8055</span>. For billing questions or disputes, please have your account email ready.
       </>
     ),
   },
@@ -114,8 +114,8 @@ export default function FAQ() {
           ))}
         </div>
         <p className="mt-6 text-center text-xs text-slate-600">
-          Still have questions?{" "}
-          <span className="text-blue-500">support@satisfied.app</span>
+          Still have questions? Call or text{" "}
+          <span className="text-blue-500">(424) 216-8055</span>
         </p>
       </div>
     </div>

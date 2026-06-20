@@ -40,7 +40,7 @@ export default function GameBoard({
     onAnswer(active.id, status, earned);
     setActive(null);
     if (totalAnswered + 1 >= totalQuestions) {
-      setTimeout(onAllDone, 400);
+      setTimeout(onAllDone, 100);
     }
   }
 

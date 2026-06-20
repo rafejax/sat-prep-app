@@ -44,7 +44,7 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="mb-2 text-lg font-bold text-white">4. Children's Privacy (COPPA)</h2>
-            <p>SATisfied is designed for students, including minors. We do not knowingly collect personal information from children under 13 without verified parental consent. If you are under 13, please have a parent or guardian create an account and manage your subscription on your behalf, or use the guest (no-account) mode. If we discover we have inadvertently collected personal data from a child under 13 without consent, we will delete it promptly. Parents may contact us at <span className="text-blue-400">support@satisfied.app</span> to request deletion.</p>
+            <p>SATisfied is designed for students, including minors. We do not knowingly collect personal information from children under 13 without verified parental consent. If you are under 13, please have a parent or guardian create an account and manage your subscription on your behalf, or use the guest (no-account) mode. If we discover we have inadvertently collected personal data from a child under 13 without consent, we will delete it promptly. Parents may call or text us at <span className="text-blue-400">(424) 216-8055</span> to request deletion.</p>
           </section>
 
           <section>
@@ -57,7 +57,7 @@ export default function PrivacyPage() {
               <li>The right to delete personal data we hold about you.</li>
               <li>The right to opt out of the sale or sharing of your personal data (we do not sell data).</li>
             </ul>
-            <p className="mt-2">To exercise any of these rights, contact us at <span className="text-blue-400">support@satisfied.app</span>. We will respond within 45 days.</p>
+            <p className="mt-2">To exercise any of these rights, call or text us at <span className="text-blue-400">(424) 216-8055</span>. We will respond within 45 days.</p>
           </section>
 
           <section>
@@ -91,8 +91,8 @@ export default function PrivacyPage() {
 
           <section>
             <h2 className="mb-2 text-lg font-bold text-white">11. Contact Us</h2>
-            <p>For privacy questions, data requests, or concerns, contact us at:<br />
-            <span className="text-blue-400">support@satisfied.app</span></p>
+            <p>For privacy questions, data requests, or concerns, call or text us at:<br />
+            <span className="text-blue-400">(424) 216-8055</span></p>
           </section>
         </div>
       </div>

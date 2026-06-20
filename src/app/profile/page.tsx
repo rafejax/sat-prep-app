@@ -123,8 +123,8 @@ export default function ProfilePage() {
             </div>
 
             <p className="text-center text-xs text-slate-600">
-              Need help?{" "}
-              <span className="text-blue-600">support@satisfied.app</span>
+              Need help? Call or text{" "}
+              <span className="text-blue-600">(424) 216-8055</span>
             </p>
           </div>
         )}

@@ -78,7 +78,7 @@ export default function TermsPage() {
 
           <section>
             <h2 className="mb-2 text-lg font-bold text-white">12. Contact</h2>
-            <p>For questions about these Terms, billing disputes, or data requests, please contact us at <span className="text-blue-400">support@satisfied.app</span>.</p>
+            <p>For questions about these Terms, billing disputes, or data requests, please call or text us at <span className="text-blue-400">(424) 216-8055</span>.</p>
           </section>
         </div>
       </div>

@@ -701,7 +701,8 @@ export function getDailyQuestions(difficulty: "PSAT" | "SAT"): {
 } {
   // Use Eastern Time date so questions rotate at midnight ET
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });
-  const seed = today.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
+  // Use date as integer (e.g. 20260620) so consecutive days produce very different seeds
+  const seed = parseInt(today.replace(/-/g, ""), 10);
 
   const seededShuffle = <T>(arr: T[]): T[] => {
     const a = [...arr];
