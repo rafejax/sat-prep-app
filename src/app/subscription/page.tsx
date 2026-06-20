@@ -8,12 +8,13 @@ import { supabase } from "@/lib/supabase";
 type SubStatus = "active" | "trialing" | "canceled" | "inactive" | null;
 
 export default function SubscriptionPage() {
-  const [user,      setUser]      = useState<AuthUser | null>(null);
-  const [status,    setStatus]    = useState<SubStatus>(null);
-  const [endDate,   setEndDate]   = useState<string | null>(null);
-  const [loading,   setLoading]   = useState(true);
+  const [user,        setUser]        = useState<AuthUser | null>(null);
+  const [status,      setStatus]      = useState<SubStatus>(null);
+  const [freeAccess,  setFreeAccess]  = useState(false);
+  const [endDate,     setEndDate]     = useState<string | null>(null);
+  const [loading,     setLoading]     = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
-  const [message,   setMessage]   = useState<string | null>(null);
+  const [message,     setMessage]     = useState<string | null>(null);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -25,10 +26,11 @@ export default function SubscriptionPage() {
       if (u && supabase) {
         const { data } = await supabase
           .from("profiles")
-          .select("subscription_status, subscription_end_at")
+          .select("subscription_status, subscription_end_at, free_access")
           .eq("id", u.id)
           .single();
         setStatus((data?.subscription_status ?? "inactive") as SubStatus);
+        setFreeAccess(data?.free_access === true);
         if (data?.subscription_end_at) {
           setEndDate(new Date(data.subscription_end_at).toLocaleDateString());
         }
@@ -73,7 +75,7 @@ export default function SubscriptionPage() {
     setActionLoading(false);
   }
 
-  const isActive = status === "active" || status === "trialing";
+  const isActive = freeAccess || status === "active" || status === "trialing";
 
   const statusLabel: Record<NonNullable<SubStatus>, { text: string; color: string }> = {
     active:   { text: "Active",   color: "text-green-400" },
@@ -118,14 +120,18 @@ export default function SubscriptionPage() {
                     {isActive ? "SATisfied Premium" : "No Active Plan"}
                   </p>
                 </div>
-                {status && (
+                {freeAccess ? (
+                  <span className="rounded-full border border-purple-400 px-3 py-1 text-xs font-bold text-purple-400">
+                    Admin
+                  </span>
+                ) : status ? (
                   <span className={`rounded-full border border-current px-3 py-1 text-xs font-bold ${statusLabel[status].color}`}>
                     {statusLabel[status].text}
                   </span>
-                )}
+                ) : null}
               </div>
 
-              {isActive && (
+              {isActive && !freeAccess && (
                 <div className="mb-6 space-y-2 text-sm text-slate-400">
                   <div className="flex items-center gap-2">
                     <span className="text-green-400">✓</span>
@@ -149,13 +155,13 @@ export default function SubscriptionPage() {
                 </div>
               )}
 
-              {endDate && (
+              {endDate && !freeAccess && (
                 <p className="mb-4 text-xs text-slate-500">
                   {status === "canceled" ? "Access until" : "Renews"}: {endDate}
                 </p>
               )}
 
-              {isActive ? (
+              {freeAccess ? null : isActive ? (
                 <button
                   onClick={handleManage}
                   disabled={actionLoading}

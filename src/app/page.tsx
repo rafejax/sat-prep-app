@@ -7,11 +7,12 @@ import Leaderboard from "@/components/Leaderboard";
 import ResultScreen from "@/components/ResultScreen";
 import AuthModal from "@/components/AuthModal";
 import AudioControls from "@/components/AudioControls";
+import FAQ from "@/components/FAQ";
 import { loadSave, writeSave, GameSave } from "@/lib/storage";
 import { AuthUser, getSession, signOut, onAuthChange } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 
-type Section  = "home" | "psat" | "sat" | "leaderboard";
+type Section  = "home" | "psat" | "sat" | "leaderboard" | "faq";
 type GamePhase = "name-entry" | "playing" | "result";
 type AnswerStatus = "correct" | "wrong";
 
@@ -46,7 +47,7 @@ function NameEntry({
           {mode === "PSAT" ? "📘" : "📗"}
         </div>
         <h2 className="mb-1 text-2xl font-black uppercase tracking-widest text-white">{mode} Daily</h2>
-        <p className="mb-6 text-sm text-blue-400">10 questions · 60 seconds each · up to 4,500 pts</p>
+        <p className="mb-6 text-sm text-blue-400">10 questions · 60 seconds each · up to 6,000 pts</p>
         <form onSubmit={(e) => { e.preventDefault(); const t = name.trim(); if (t) onStart(t.slice(0, 32)); }} className="flex flex-col gap-3">
           <input
             autoFocus type="text" maxLength={32} placeholder="Enter your display name…"
@@ -316,6 +317,7 @@ const NAV_ITEMS: { id: Section; label: string; icon: string }[] = [
   { id: "psat",        label: "PSAT",   icon: "📘" },
   { id: "sat",         label: "SAT",    icon: "📗" },
   { id: "leaderboard", label: "Ranks",  icon: "🏆" },
+  { id: "faq",         label: "FAQ",    icon: "❓" },
 ];
 
 // ── Root ───────────────────────────────────────────────────────────────────────
@@ -325,41 +327,32 @@ export default function App() {
   const [subscribed, setSubscribed] = useState(false);
   const [showAuth,   setShowAuth]   = useState(false);
 
+  async function checkAccess(u: AuthUser) {
+    if (!supabase) { setSubscribed(true); return; }
+    const { data } = await supabase
+      .from("profiles")
+      .select("subscription_status, free_access")
+      .eq("id", u.id)
+      .single();
+    const st = data?.subscription_status;
+    setSubscribed(data?.free_access === true || st === "active" || st === "trialing");
+  }
+
   // Load auth session and subscription status on mount
   useEffect(() => {
     async function loadAuth() {
       const u = await getSession();
       setUser(u);
-      if (u && supabase) {
-        const { data } = await supabase
-          .from("profiles")
-          .select("subscription_status")
-          .eq("id", u.id)
-          .single();
-        const st = data?.subscription_status;
-        setSubscribed(st === "active" || st === "trialing");
-      } else if (!supabase) {
-        // Demo mode: no Supabase configured → treat as subscribed
-        setSubscribed(true);
-      }
+      if (u) await checkAccess(u);
+      else if (!supabase) setSubscribed(true);
     }
     loadAuth();
     return onAuthChange(async (u) => {
       setUser(u);
       if (!u) { setSubscribed(false); return; }
-      if (supabase) {
-        const { data } = await supabase
-          .from("profiles")
-          .select("subscription_status")
-          .eq("id", u.id)
-          .single();
-        const st = data?.subscription_status;
-        setSubscribed(st === "active" || st === "trialing");
-      } else {
-        setSubscribed(true);
-      }
+      await checkAccess(u);
     });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="flex min-h-screen flex-col bg-[#040410]">
@@ -406,6 +399,7 @@ export default function App() {
           {section === "leaderboard" && (
             <div className="px-4 py-6"><Leaderboard /></div>
           )}
+          {section === "faq" && <FAQ />}
         </div>
       </main>
 

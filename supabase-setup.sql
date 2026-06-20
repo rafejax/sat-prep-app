@@ -42,8 +42,12 @@ CREATE TABLE IF NOT EXISTS profiles (
   stripe_customer_id   TEXT        UNIQUE,
   subscription_status  TEXT        NOT NULL DEFAULT 'inactive',
   subscription_end_at  TIMESTAMPTZ,
+  free_access          BOOLEAN     NOT NULL DEFAULT FALSE,
   updated_at           TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Add free_access column if table already exists without it
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS free_access BOOLEAN NOT NULL DEFAULT FALSE;
 
 CREATE INDEX IF NOT EXISTS profiles_stripe_idx ON profiles (stripe_customer_id);
 
