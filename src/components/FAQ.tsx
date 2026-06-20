@@ -8,7 +8,7 @@ type FAQItem = { q: string; a: React.ReactNode };
 const FAQS: FAQItem[] = [
   {
     q: "What is SATisfied?",
-    a: "SATisfied is a daily SAT and PSAT practice app. Each day you get a fresh set of 10 questions across Math and English, arranged in a Jeopardy-style board with point values from 200 to 1,000. Compete on the weekly leaderboard and track your progress over time.",
+    a: "SATisfied is a daily SAT and PSAT practice app. Each day you get a fresh set of 10 questions across Math and English, arranged in a game show-style board with point values from 200 to 1,000. Compete on the weekly leaderboard and track your progress over time.",
   },
   {
     q: "What's the difference between PSAT and SAT mode?",
@@ -16,7 +16,7 @@ const FAQS: FAQItem[] = [
   },
   {
     q: "Do I need an account to play?",
-    a: "No — you can play as a guest without signing up. However, creating a free account lets your display name carry over between sessions and allows you to subscribe and appear on the leaderboard.",
+    a: "Yes. A SATisfied account and an active subscription are required to access the practice boards. You can create an account and start a 7-day free trial — no charge until the trial ends. Without a subscription, the boards are locked.",
   },
   {
     q: "Is my progress saved if I exit?",
@@ -47,7 +47,7 @@ const FAQS: FAQItem[] = [
     a: (
       <ol className="list-decimal space-y-1 pl-5">
         <li>Sign in to your account on SATisfied.</li>
-        <li>On the home screen, tap <strong>Manage plan</strong> next to your name, or go to <Link href="/subscription" className="text-blue-400 hover:text-blue-300 underline">satisified.app/subscription</Link>.</li>
+        <li>On the home screen, tap <strong>Manage plan</strong> next to your name, or go to <Link href="/subscription" className="text-blue-400 hover:text-blue-300 underline">satisfied.app/subscription</Link>.</li>
         <li>Click <strong>Manage Billing / Cancel</strong>. You will be redirected to the Stripe billing portal.</li>
         <li>In the portal, click <strong>Cancel plan</strong> and confirm.</li>
         <li>Your access continues until the end of the current billing period — you will not be charged again after canceling.</li>
@@ -59,8 +59,12 @@ const FAQS: FAQItem[] = [
     a: "No. Your card is not charged during the 7-day free trial. Billing begins only after the trial ends. You can cancel at any time during the trial and you will never be charged.",
   },
   {
-    q: "How do I change my display name?",
-    a: "Display names are set when you create your account. At this time, display names cannot be changed after signup. If you need to update yours, please contact us at support@satisfied.app.",
+    q: "How do I update my display name or account info?",
+    a: (
+      <>
+        Go to your <Link href="/profile" className="text-blue-400 hover:text-blue-300 underline">Profile page</Link> by clicking <strong>Profile</strong> next to your name on the home screen. From there you can update your display name. Your email address cannot be changed after signup.
+      </>
+    ),
   },
   {
     q: "Is SATisfied affiliated with the College Board?",

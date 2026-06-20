@@ -19,6 +19,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {/* Legal footer — shown on /terms and /privacy */}
         <footer className="border-t border-blue-900/20 py-4 text-center text-xs text-slate-600">
           <span className="mr-3">© 2026 SATisfied</span>
+          <a href="/profile"      className="mr-3 hover:text-blue-400 transition">Profile</a>
           <a href="/subscription" className="mr-3 hover:text-blue-400 transition">Subscription</a>
           <a href="/terms"        className="mr-3 hover:text-blue-400 transition">Terms of Use</a>
           <a href="/privacy"      className="hover:text-blue-400 transition">Privacy Policy</a>

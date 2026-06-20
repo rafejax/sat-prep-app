@@ -97,6 +97,7 @@ function HomeSection({
           <>
             <span className="text-blue-300">👤 {user.displayName}</span>
             <div className="flex items-center gap-3">
+              <a href="/profile" className="text-xs text-blue-500 hover:text-blue-300 transition">Profile</a>
               <a href="/subscription" className="text-xs text-yellow-600 hover:text-yellow-400 transition">Manage plan</a>
               <button onClick={onSignOut} className="text-slate-500 hover:text-slate-300 transition text-xs">Sign out</button>
             </div>
