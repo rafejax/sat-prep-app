@@ -1,19 +1,18 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Sora } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const sora = Sora({ variable: "--font-sora", subsets: ["latin"], weight: ["400", "600", "700", "800"] });
 
 export const metadata: Metadata = {
   title: "SATisfied – Daily Practice",
-  description: "Jeopardy-style SAT/PSAT daily practice with Math and English challenges.",
+  description: "Game show-style SAT/PSAT daily practice with Math and English challenges.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-[#040410]">
+    <html lang="en" className={`${sora.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-[#040410]" style={{ fontFamily: "var(--font-sora), sans-serif" }}>
         {children}
 
         {/* Legal footer — shown on /terms and /privacy */}
