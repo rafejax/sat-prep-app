@@ -80,7 +80,7 @@ export default function Leaderboard() {
     <div>
       <div className="mb-5 text-center">
         <h2 className="text-xl font-black uppercase tracking-wider text-white">Leaderboard</h2>
-        <p className="mt-1 text-sm text-blue-400">Top scores by points earned</p>
+        <p className="mt-1 text-sm text-blue-400">Cumulative points — play every day to climb</p>
       </div>
 
       {/* PSAT / SAT toggle */}

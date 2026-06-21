@@ -32,7 +32,7 @@ const FAQS: FAQItem[] = [
   },
   {
     q: "How does the leaderboard work?",
-    a: "Your first completed attempt each day is submitted to the leaderboard automatically. The weekly leaderboard shows the top scores from the current week (Monday–Sunday). The all-time leaderboard shows the highest scores ever recorded.",
+    a: "Your score is submitted to the leaderboard automatically when you finish a board. The leaderboard is cumulative — it adds up all of your scores over time, not just your single best game. The weekly leaderboard totals every score you earn during the current week (Monday–Sunday ET) and resets each Monday at midnight ET. The all-time leaderboard is a running total of every score you have ever submitted. The more days you play, the higher your total.",
   },
   {
     q: "What does the subscription include?",
@@ -62,7 +62,7 @@ const FAQS: FAQItem[] = [
     q: "How do I update my display name or account info?",
     a: (
       <>
-        Go to your <Link href="/profile" className="text-blue-400 hover:text-blue-300 underline">Profile page</Link> by clicking <strong>Profile</strong> next to your name on the home screen. From there you can update your display name. Your email address cannot be changed after signup.
+        Go to your <Link href="/profile" className="text-blue-400 hover:text-blue-300 underline">Profile page</Link> by clicking <strong>Profile</strong> next to your name on the home screen. From there you can update your display name. Your email address cannot be changed after signup. Note: past leaderboard scores are stored under the name you used when you played them — changing your display name will not rename old scores on the leaderboard.
       </>
     ),
   },

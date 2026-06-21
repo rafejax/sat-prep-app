@@ -118,19 +118,11 @@ function HomeSection({
         {/* PSAT card */}
         <button
           onClick={() => onNavigate("psat")}
-          className="group flex items-center gap-4 rounded-2xl px-5 py-5 text-left transition-all duration-200"
+          className="group flex cursor-pointer items-center gap-4 rounded-2xl px-5 py-5 text-left transition-all duration-200 active:scale-[0.98]"
           style={{
             background: "linear-gradient(135deg, #1e1b4b 0%, #0f0a2e 100%)",
             border: "1px solid rgba(99,102,241,0.35)",
             boxShadow: "0 4px 24px rgba(99,102,241,0.1)",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(129,140,248,0.6)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 32px rgba(99,102,241,0.22)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(99,102,241,0.35)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 24px rgba(99,102,241,0.1)";
           }}
         >
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-2xl" style={{ background: "rgba(99,102,241,0.2)", border: "1px solid rgba(99,102,241,0.3)" }}>📘</div>
@@ -145,19 +137,11 @@ function HomeSection({
         {/* SAT card */}
         <button
           onClick={() => onNavigate("sat")}
-          className="group flex items-center gap-4 rounded-2xl px-5 py-5 text-left transition-all duration-200"
+          className="group flex cursor-pointer items-center gap-4 rounded-2xl px-5 py-5 text-left transition-all duration-200 active:scale-[0.98]"
           style={{
             background: "linear-gradient(135deg, #0c1a3a 0%, #060e28 100%)",
             border: "1px solid rgba(59,130,246,0.35)",
             boxShadow: "0 4px 24px rgba(59,130,246,0.1)",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(96,165,250,0.6)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 32px rgba(59,130,246,0.22)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(59,130,246,0.35)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 24px rgba(59,130,246,0.1)";
           }}
         >
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-2xl" style={{ background: "rgba(59,130,246,0.2)", border: "1px solid rgba(59,130,246,0.3)" }}>📗</div>
@@ -172,25 +156,17 @@ function HomeSection({
         {/* Leaderboard card */}
         <button
           onClick={() => onNavigate("leaderboard")}
-          className="group flex items-center gap-4 rounded-2xl px-5 py-5 text-left transition-all duration-200"
+          className="group flex cursor-pointer items-center gap-4 rounded-2xl px-5 py-5 text-left transition-all duration-200 active:scale-[0.98]"
           style={{
             background: "linear-gradient(135deg, #1c1400 0%, #0f0b00 100%)",
             border: "1px solid rgba(234,179,8,0.3)",
             boxShadow: "0 4px 24px rgba(234,179,8,0.07)",
           }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(250,204,21,0.55)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 32px rgba(234,179,8,0.16)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(234,179,8,0.3)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 24px rgba(234,179,8,0.07)";
-          }}
         >
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-2xl" style={{ background: "rgba(234,179,8,0.15)", border: "1px solid rgba(234,179,8,0.25)" }}>🏆</div>
           <div className="flex-1 text-left">
             <p className="font-black text-white">Leaderboard</p>
-            <p className="text-xs text-yellow-600">Weekly &amp; all-time rankings</p>
+            <p className="text-xs text-yellow-600">Cumulative weekly &amp; all-time rankings</p>
           </div>
           <span className="text-yellow-700 opacity-60 transition-opacity group-hover:opacity-100">›</span>
         </button>
@@ -201,7 +177,7 @@ function HomeSection({
         <ul className="space-y-1 text-xs text-slate-500">
           <li>· Pick a question tile (200 – 1,000 pts)</li>
           <li>· Answer within 60 seconds</li>
-          <li>· First attempt counts toward leaderboard</li>
+          <li>· Score adds to your weekly &amp; all-time total</li>
           <li>· Exit and return anytime — progress saves</li>
           <li>· Fresh questions every day at midnight ET</li>
         </ul>
@@ -219,7 +195,8 @@ function GameSection({ mode, user, subscribed, onBack, onGoLeaderboard, onShowAu
   onGoLeaderboard: () => void;
   onShowAuth: () => void;
 }) {
-  const { math, english } = useMemo(() => getDailyQuestions(mode), [mode]);
+  // Include TODAY so questions refresh automatically if the date changes while the app is open
+  const { math, english } = useMemo(() => getDailyQuestions(mode), [mode, TODAY]);
 
   const [playerName, setPlayerName]   = useState("");
   const [score, setScore]             = useState(0);

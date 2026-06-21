@@ -84,8 +84,8 @@ export default function ResultScreen({
 
         <p className="mb-5 text-xs text-slate-500">
           {submitStatus === "pending" && "Saving score…"}
-          {submitStatus === "done" && !alreadySubmitted && "✓ Score saved to leaderboard"}
-          {submitStatus === "done" && alreadySubmitted && "ℹ First attempt already on leaderboard"}
+          {submitStatus === "done" && !alreadySubmitted && "✓ Score added to your leaderboard total"}
+          {submitStatus === "done" && alreadySubmitted && "ℹ Score already submitted for today"}
           {submitStatus === "error" && "Could not save score (check connection)"}
         </p>
 
