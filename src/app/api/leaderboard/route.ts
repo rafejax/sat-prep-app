@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
       .from("leaderboard")
       .select("*")
       .order("score", { ascending: false })
-      .limit(50);
+      .limit(2000);
 
     if (period === "weekly") {
       query = query.gte("date", getMondayDate());
@@ -46,11 +46,15 @@ export async function GET(req: NextRequest) {
     const { data, error } = await query;
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    // Deduplicate: keep only the best score per player
-    const byPlayer = new Map<string, typeof data[0]>();
+    // Aggregate: sum all scores per player so the leaderboard reflects cumulative effort
+    const byPlayer = new Map<string, { player_name: string; score: number; mode: string; date: string }>();
     for (const entry of data ?? []) {
       const existing = byPlayer.get(entry.player_name);
-      if (!existing || entry.score > existing.score) byPlayer.set(entry.player_name, entry);
+      if (!existing) {
+        byPlayer.set(entry.player_name, { ...entry });
+      } else {
+        existing.score += entry.score;
+      }
     }
     const deduped = [...byPlayer.values()].sort((a, b) => b.score - a.score).slice(0, 50);
     return NextResponse.json(deduped);

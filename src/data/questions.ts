@@ -699,38 +699,42 @@ export function getDailyQuestions(difficulty: "PSAT" | "SAT"): {
   math: Question[];
   english: Question[];
 } {
-  // Use Eastern Time date so questions rotate at midnight ET
+  // Eastern Time date so questions rotate at midnight ET
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "America/New_York" });
-  // Use date as integer (e.g. 20260620) so consecutive days produce very different seeds
-  const seed = parseInt(today.replace(/-/g, ""), 10);
+  const dateSeed = parseInt(today.replace(/-/g, ""), 10);
 
-  const seededShuffle = <T>(arr: T[]): T[] => {
+  // FNV-1a hash for a string → 32-bit uint
+  const fnv = (s: string): number => {
+    let h = 0x811c9dc5;
+    for (let i = 0; i < s.length; i++) {
+      h ^= s.charCodeAt(i);
+      h = Math.imul(h, 0x01000193) >>> 0;
+    }
+    return h;
+  };
+
+  // Fisher-Yates shuffle with an explicit uint32 seed
+  const shuffle = <T>(arr: T[], seed: number): T[] => {
     const a = [...arr];
-    let s = seed;
+    let s = seed >>> 0;
     for (let i = a.length - 1; i > 0; i--) {
-      s = (s * 1664525 + 1013904223) & 0xffffffff;
-      const j = Math.abs(s) % (i + 1);
+      s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+      const j = s % (i + 1);
       [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
   };
 
-  const usedIds = new Set<string>();
-
-  const pickSeeded = (category: "Math" | "English"): Question[] => {
-    const pool = seededShuffle(
-      QUESTIONS.filter((q) => q.category === category && q.difficulty === difficulty)
-    );
-    const result: Question[] = [];
-    for (const pts of POINT_VALUES) {
-      const pick = pool.find((q) => q.points === pts && !usedIds.has(q.id));
-      if (pick) {
-        result.push(pick);
-        usedIds.add(pick.id);
-      }
-    }
-    return result;
-  };
+  // Each (difficulty, category, points) slot gets its own independent seed so
+  // every slot rotates through its question pool independently each day.
+  const pickSeeded = (category: "Math" | "English"): Question[] =>
+    POINT_VALUES.map((pts) => {
+      const slotSeed = (dateSeed ^ fnv(`${difficulty}-${category}-${pts}`)) >>> 0;
+      const pool = QUESTIONS.filter(
+        (q) => q.category === category && q.difficulty === difficulty && q.points === pts
+      );
+      return shuffle(pool, slotSeed)[0];
+    }).filter(Boolean) as Question[];
 
   return {
     math: pickSeeded("Math"),

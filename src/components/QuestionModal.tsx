@@ -154,25 +154,8 @@ export default function QuestionModal({ question, onClose }: Props) {
                 key={choice}
                 disabled={locked}
                 onClick={() => submit(choice)}
-                className="flex items-start gap-3 rounded-xl px-4 py-3.5 text-left text-sm transition-all duration-150"
-                style={{
-                  ...style,
-                  cursor: locked ? "default" : "pointer",
-                }}
-                onMouseEnter={(e) => {
-                  if (!locked && !revealed) {
-                    (e.currentTarget as HTMLButtonElement).style.border = `1px solid ${isMath ? "rgba(96,165,250,0.5)" : "rgba(129,140,248,0.5)"}`;
-                    (e.currentTarget as HTMLButtonElement).style.background = isMath
-                      ? "rgba(29,78,216,0.15)"
-                      : "rgba(67,56,202,0.15)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!locked && !revealed) {
-                    (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(51,65,85,0.8)";
-                    (e.currentTarget as HTMLButtonElement).style.background = "rgba(15,23,42,0.8)";
-                  }
-                }}
+                className={`flex items-start gap-3 rounded-xl px-4 py-3.5 text-left text-sm transition-all duration-150 active:scale-[0.98] ${!locked ? "cursor-pointer" : "cursor-default"}`}
+                style={{ ...style }}
               >
                 <span
                   className="mt-0.5 shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider"
@@ -225,22 +208,13 @@ export default function QuestionModal({ question, onClose }: Props) {
 
         {/* Footer */}
         {revealed && (
-          <div
-            className="px-6 pb-5"
-            style={{ borderTop: "1px solid rgba(30,41,59,0.8)", paddingTop: "1.25rem" }}
-          >
+          <div className="px-6 pb-5 pt-5" style={{ borderTop: "1px solid rgba(30,41,59,0.8)" }}>
             <button
-              onClick={(e) => { e.stopPropagation(); setTimeout(() => onClose(earned), 50); }}
-              className="w-full rounded-xl py-3.5 font-black uppercase tracking-widest text-white transition-all duration-150"
+              onClick={() => onClose(earned)}
+              className="w-full cursor-pointer rounded-xl py-3.5 font-black uppercase tracking-widest text-white transition-all duration-150 active:scale-95"
               style={{
                 background: "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)",
                 boxShadow: "0 4px 20px rgba(37,99,235,0.35), inset 0 1px 0 rgba(255,255,255,0.1)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = "linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.background = "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)";
               }}
             >
               Continue →
