@@ -39,11 +39,12 @@ export default function ProfilePage() {
         .eq("id", user.id);
       if (dbError) throw dbError;
 
-      // Rename all leaderboard entries so the new name shows on rankings
+      // Rename all leaderboard entries (including legacy unclaimed rows) so the
+      // new name shows on rankings immediately
       await fetch("/api/leaderboard", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: user.id, new_name: name }),
+        body: JSON.stringify({ user_id: user.id, old_name: user.displayName, new_name: name }),
       });
 
       setMessage({ text: "Display name updated successfully.", ok: true });

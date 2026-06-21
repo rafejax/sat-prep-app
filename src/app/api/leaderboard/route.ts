@@ -99,10 +99,12 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(saved);
 }
 
-/** PATCH /api/leaderboard — rename all entries for a user when they change their display name. */
+/** PATCH /api/leaderboard — rename all entries for a user when they change their display name.
+ *  Also claims legacy rows (no user_id) that match the old player_name so historical
+ *  scores get renamed and linked to the account. */
 export async function PATCH(req: NextRequest) {
   const body = await req.json();
-  const { user_id, new_name } = body as { user_id?: string; new_name?: string };
+  const { user_id, old_name, new_name } = body as { user_id?: string; old_name?: string; new_name?: string };
 
   if (!user_id || !new_name) {
     return NextResponse.json({ error: "user_id and new_name are required" }, { status: 400 });
@@ -111,11 +113,24 @@ export async function PATCH(req: NextRequest) {
   const svc = getServiceClient();
   if (!svc) return NextResponse.json({ error: "Service client unavailable" }, { status: 500 });
 
-  const { error } = await svc
-    .from("leaderboard")
-    .update({ player_name: String(new_name).slice(0, 32) })
-    .eq("user_id", user_id);
+  const safeName = String(new_name).slice(0, 32);
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  // 1. Rename rows already linked to this account
+  const { error: e1 } = await svc
+    .from("leaderboard")
+    .update({ player_name: safeName })
+    .eq("user_id", user_id);
+  if (e1) return NextResponse.json({ error: e1.message }, { status: 500 });
+
+  // 2. Claim + rename legacy rows that have no user_id but match the old name
+  if (old_name) {
+    const { error: e2 } = await svc
+      .from("leaderboard")
+      .update({ player_name: safeName, user_id })
+      .is("user_id", null)
+      .eq("player_name", String(old_name).slice(0, 32));
+    if (e2) return NextResponse.json({ error: e2.message }, { status: 500 });
+  }
+
   return NextResponse.json({ ok: true });
 }

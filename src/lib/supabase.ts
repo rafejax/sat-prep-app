@@ -10,6 +10,8 @@ export type LeaderboardEntry = {
   id?: number;
   player_name: string;
   score: number;
-  date: string; // ISO date string YYYY-MM-DD
+  mode?: string;
+  date: string;
+  user_id?: string | null;
   created_at?: string;
 };
