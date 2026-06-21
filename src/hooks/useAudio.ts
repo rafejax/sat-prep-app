@@ -7,21 +7,13 @@ let sharedCtx: AudioContext | null = null;
 
 function getCtx(): AudioContext | null {
   if (typeof window === "undefined") return null;
-  if (!sharedCtx || sharedCtx.state === "closed") {
-    sharedCtx = new AudioContext();
-  }
+  if (!sharedCtx || sharedCtx.state === "closed") sharedCtx = new AudioContext();
   return sharedCtx;
 }
 
-// Soft fade-in/out envelope helper
 function envelope(
-  gain: GainNode,
-  ctx: AudioContext,
-  t0: number,
-  peak: number,
-  attack: number,
-  hold: number,
-  release: number
+  gain: GainNode, ctx: AudioContext,
+  t0: number, peak: number, attack: number, hold: number, release: number
 ) {
   gain.gain.setValueAtTime(0, t0);
   gain.gain.linearRampToValueAtTime(peak, t0 + attack);
@@ -35,22 +27,17 @@ export function useTimerSound() {
     const ctx = getCtx();
     if (!ctx) return;
     if (ctx.state === "suspended") ctx.resume();
-
-    // Three descending square beeps
     [
       { freq: 880, t: 0,    dur: 0.12 },
       { freq: 660, t: 0.18, dur: 0.12 },
       { freq: 440, t: 0.36, dur: 0.22 },
     ].forEach(({ freq, t, dur }) => {
-      const osc  = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
       osc.type = "square";
       osc.frequency.setValueAtTime(freq, ctx.currentTime + t);
       envelope(gain, ctx, ctx.currentTime + t, 0.15, 0.01, dur - 0.02, 0.04);
-      osc.start(ctx.currentTime + t);
-      osc.stop(ctx.currentTime + t + dur + 0.05);
+      osc.start(ctx.currentTime + t); osc.stop(ctx.currentTime + t + dur + 0.05);
     });
   }, []);
 }
@@ -61,18 +48,13 @@ export function useCorrectSound() {
     const ctx = getCtx();
     if (!ctx) return;
     if (ctx.state === "suspended") ctx.resume();
-
-    // Rising two-note chime — C5 → G5
     [{ freq: 523, t: 0 }, { freq: 784, t: 0.16 }].forEach(({ freq, t }) => {
-      const osc  = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
       osc.type = "sine";
       osc.frequency.setValueAtTime(freq, ctx.currentTime + t);
       envelope(gain, ctx, ctx.currentTime + t, 0.22, 0.01, 0.05, 0.35);
-      osc.start(ctx.currentTime + t);
-      osc.stop(ctx.currentTime + t + 0.42);
+      osc.start(ctx.currentTime + t); osc.stop(ctx.currentTime + t + 0.42);
     });
   }, []);
 }
@@ -83,139 +65,183 @@ export function useWrongSound() {
     const ctx = getCtx();
     if (!ctx) return;
     if (ctx.state === "suspended") ctx.resume();
-
-    // Soft descending minor 3rd — two low muted tones
     [{ freq: 311, t: 0 }, { freq: 261, t: 0.18 }].forEach(({ freq, t }) => {
-      const osc  = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
       osc.type = "triangle";
       osc.frequency.setValueAtTime(freq, ctx.currentTime + t);
-      // Pitch bend slightly down for a "droopy" feel
       osc.frequency.linearRampToValueAtTime(freq * 0.92, ctx.currentTime + t + 0.2);
       envelope(gain, ctx, ctx.currentTime + t, 0.18, 0.01, 0.05, 0.28);
-      osc.start(ctx.currentTime + t);
-      osc.stop(ctx.currentTime + t + 0.36);
+      osc.start(ctx.currentTime + t); osc.stop(ctx.currentTime + t + 0.36);
     });
   }, []);
 }
 
-// ── Lofi game-show background music ───────────────────────────────────────────
-// Original composition — calm jazz-influenced lofi, NOT Jeopardy.
-// Key: D minor (dorian feel) · 78 BPM · 8-bar repeating phrase
-// All notes synthesized via Web Audio API — 100% royalty-free procedural audio.
+// ── Coffee-shop jazz background music ─────────────────────────────────────────
+// Original composition — smooth jazz in C major/A minor, 92 BPM.
+// Walking bass line, maj9/dom9 chord voicings, swing-inflected melody.
+// 100% royalty-free procedural audio via Web Audio API.
 
-const BPM  = 78;
+const BPM  = 92;
 const BEAT = 60 / BPM;
 const BAR  = BEAT * 4;
 
-// Melody — gentle single-note line (Dm pentatonic: D E F A C)
+// Swing ratio: long-short pair (dotted-eighth + sixteenth feel)
+const SW = 0.67; // long beat fraction in a pair
+
+// Melody — C major pentatonic (C D E G A), warm single-note line
 // [freq Hz, beat offset, duration beats]
 const MELODY: [number, number, number][] = [
-  // Bar 1 — D E F A
-  [293.7, 0,    0.75], [329.6, 1,    0.5 ], [349.2, 1.75, 0.5 ], [440,   2.5,  1.5 ],
-  // Bar 2 — C A F E
-  [261.6, 4,    0.5 ], [440,   4.75, 0.75], [349.2, 5.75, 0.5 ], [329.6, 6.5,  1.5 ],
-  // Bar 3 — D F A C
-  [293.7, 8,    0.5 ], [349.2, 8.75, 0.5 ], [440,   9.5,  0.5 ], [523.3, 10,   2   ],
-  // Bar 4 — A G F D (step down, resolve)
-  [440,   12.5, 0.5 ], [392,   13,   0.5 ], [349.2, 13.5, 0.5 ], [293.7, 14,   2   ],
-  // Bar 5 — E F A C (up)
-  [329.6, 16,   0.5 ], [349.2, 16.75,0.5 ], [440,   17.5, 0.5 ], [523.3, 18,   1.5 ],
-  // Bar 6 — C A F E
-  [523.3, 20,   0.5 ], [440,   20.75,0.5 ], [349.2, 21.5, 0.5 ], [329.6, 22,   2   ],
-  // Bar 7 — D F A (hold)
-  [293.7, 24,   0.5 ], [349.2, 24.75,0.75], [440,   25.75,2.25],
-  // Bar 8 — D whole
-  [293.7, 28,   3.5 ],
+  // Bar 1 — Cmaj feel, rising
+  [392, 0,       0.5 ], [440, 0+SW,    0.33], [523.3, 1,     0.5 ],
+  [587.3, 1+SW,  0.5 ], [659.3, 2,     1.5 ],
+  // Bar 2 — Am colour, step down
+  [659.3, 4,     0.33], [587.3, 4+SW,  0.5 ], [523.3, 5,     0.5 ],
+  [440,   5+SW,  0.5 ], [392,   6,     2   ],
+  // Bar 3 — F maj flavour, rising phrase
+  [349.2, 8,     0.5 ], [392,   8+SW,  0.5 ], [440,   9,     0.5 ],
+  [523.3, 9+SW,  0.5 ], [587.3, 10,    1   ], [659.3, 11,    1   ],
+  // Bar 4 — resolve to C
+  [587.3, 12,    0.33], [523.3, 12+SW, 0.33], [440, 13,      0.5 ],
+  [392,   13+SW, 0.5 ], [523.3, 14,    2   ],
+  // Bar 5 — G dominant push
+  [392,   16,    0.5 ], [440,   16+SW, 0.5 ], [587.3, 17,    0.5 ],
+  [659.3, 17+SW, 0.5 ], [784,   18,    1.5 ],
+  // Bar 6 — back to Am
+  [784,   20,    0.33], [659.3, 20+SW, 0.5 ], [587.3, 21,    0.5 ],
+  [523.3, 21+SW, 0.5 ], [440,   22,    2   ],
+  // Bar 7 — climb
+  [392,   24,    0.5 ], [440,   24+SW, 0.5 ], [523.3, 25,    0.75],
+  [587.3, 26,    0.75], [659.3, 27,    1   ],
+  // Bar 8 — long resolve
+  [523.3, 28,    0.5 ], [440,   28+SW, 0.5 ], [392,   29,    3   ],
 ];
 
-// Jazz pad — stacked minor-7th voicing, changes every 2 bars
-// [freqs[], beat offset]
-const PADS: [number[], number][] = [
-  [[293.7, 349.2, 440,   523.3], 0 ],  // Dm7
-  [[261.6, 329.6, 392,   493.9], 4 ],  // Cmaj7
-  [[261.6, 311.1, 369.9, 466.2], 8 ],  // Fm7 (colour chord)
-  [[293.7, 349.2, 440,   523.3], 12],  // Dm7
-  [[246.9, 293.7, 369.9, 440  ], 16],  // Bbadd9 feel
-  [[261.6, 329.6, 392,   493.9], 20],  // Cmaj7
-  [[220,   293.7, 349.2, 440  ], 24],  // Am7
-  [[293.7, 349.2, 440,   523.3], 28],  // Dm7
+// Jazz pads — warm maj9/dom9 voicings, change every 2 bars
+// [freqs[] Hz, beat offset, duration bars]
+const PADS: [number[], number, number][] = [
+  [[261.6, 329.6, 392,   493.9, 587.3], 0,  2],  // Cmaj9
+  [[220,   261.6, 329.6, 415.3, 523.3], 8,  2],  // Am9
+  [[174.6, 220,   261.6, 349.2, 440  ], 16, 2],  // Fmaj9
+  [[196,   246.9, 293.7, 370,   493.9], 24, 2],  // G9 (dominant)
 ];
 
-// Bass — root quarter notes, soft and mellow
+// Walking bass — stepwise quarter notes, jazz-style chromatic approach
 const BASS: [number, number][] = [
-  [73.4, 0], [73.4, 2],    // D
-  [65.4, 4], [65.4, 6],    // C
-  [65.4, 8], [77.8, 10],   // C → Eb
-  [73.4, 12], [73.4, 14],  // D
-  [61.7, 16], [65.4, 18],  // B → C
-  [65.4, 20], [65.4, 22],  // C
-  [55,   24], [73.4, 26],  // A → D
-  [73.4, 28], [73.4, 30],  // D
+  // Bar 1 — C walk C-E-G-B
+  [65.4, 0], [82.4, 1], [98,   2], [123.5, 3],
+  // Bar 2 — A walk A-C-E-G
+  [55,   4], [65.4, 5], [82.4, 6], [98,    7],
+  // Bar 3 — F walk F-A-C-E
+  [43.7, 8], [55,   9], [65.4, 10], [82.4, 11],
+  // Bar 4 — G walk G-B-D-F#
+  [49,   12], [61.7, 13], [73.4, 14], [92.5, 15],
+  // repeat with variation
+  [65.4, 16], [73.4, 17], [82.4, 18], [98,   19],
+  [55,   20], [65.4, 21], [73.4, 22], [82.4, 23],
+  [43.7, 24], [55,   25], [61.7, 26], [73.4, 27],
+  [49,   28], [55,   29], [65.4, 30], [73.4, 31],
 ];
 
 const LOOP_BEATS = 32;
+
+function makeReverb(ctx: AudioContext): ConvolverNode {
+  const len    = ctx.sampleRate * 1.2;
+  const buffer = ctx.createBuffer(2, len, ctx.sampleRate);
+  for (let c = 0; c < 2; c++) {
+    const d = buffer.getChannelData(c);
+    for (let i = 0; i < len; i++) {
+      d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.5);
+    }
+  }
+  const rv = ctx.createConvolver();
+  rv.buffer = buffer;
+  return rv;
+}
 
 export function useBackgroundMusic() {
   const playingRef = useRef(false);
   const mutedRef   = useRef(false);
   const masterRef  = useRef<GainNode | null>(null);
   const loopTimer  = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const reverbRef  = useRef<ConvolverNode | null>(null);
 
   const scheduleLoop = useCallback((loopStart: number) => {
     const ctx = getCtx();
     if (!ctx || !masterRef.current) return;
     const master = masterRef.current;
 
-    // Melody — soft sine
+    if (!reverbRef.current) {
+      reverbRef.current = makeReverb(ctx);
+      const reverbGain = ctx.createGain();
+      reverbGain.gain.setValueAtTime(0.18, ctx.currentTime);
+      reverbRef.current.connect(reverbGain);
+      reverbGain.connect(master);
+    }
+    const reverb = reverbRef.current;
+
+    // Melody — warm sine with slight vibrato feel via detuning
     MELODY.forEach(([freq, beat, dur]) => {
       const t0  = loopStart + beat * BEAT;
-      const osc  = ctx.createOscillator();
+      const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(master);
+      osc.connect(gain); gain.connect(master);
+      osc.connect(reverb);
       osc.type = "sine";
       osc.frequency.setValueAtTime(freq, t0);
-      envelope(gain, ctx, t0, 0.13, 0.04, dur * BEAT - 0.1, 0.1);
-      osc.start(t0);
-      osc.stop(t0 + dur * BEAT + 0.12);
+      // Subtle pitch warmth
+      osc.detune.setValueAtTime(3, t0);
+      osc.detune.linearRampToValueAtTime(-3, t0 + dur * BEAT * 0.6);
+      envelope(gain, ctx, t0, 0.11, 0.035, dur * BEAT - 0.08, 0.12);
+      osc.start(t0); osc.stop(t0 + dur * BEAT + 0.15);
     });
 
-    // Jazz pads — triangle, very soft, slow attack (lofi "tape" feel)
-    PADS.forEach(([freqs, beat]) => {
+    // Jazz pads — triangle + sine layer for warmth, slow attack
+    PADS.forEach(([freqs, beat, bars]) => {
       const t0   = loopStart + beat * BEAT;
-      const tEnd = t0 + BAR * 2 * 0.88;
+      const tDur = BAR * bars * 0.9;
       freqs.forEach((freq, i) => {
-        const osc  = ctx.createOscillator();
-        const gain = ctx.createGain();
-        osc.connect(gain);
-        gain.connect(master);
-        osc.type = "triangle";
+        const osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.connect(gain); gain.connect(master);
+        osc.type = i < 2 ? "sine" : "triangle";
         osc.frequency.setValueAtTime(freq, t0);
-        // Each voice slightly staggered for a gentle roll
-        const stagger = i * 0.04;
-        envelope(gain, ctx, t0 + stagger, 0.04, 0.18, tEnd - t0 - stagger - 0.25, 0.25);
-        osc.start(t0 + stagger);
-        osc.stop(tEnd + 0.3);
+        osc.detune.setValueAtTime(i % 2 === 0 ? 4 : -4, t0);
+        const stagger = i * 0.06;
+        envelope(gain, ctx, t0 + stagger, i < 2 ? 0.055 : 0.035, 0.22, tDur - stagger - 0.3, 0.3);
+        osc.start(t0 + stagger); osc.stop(t0 + tDur + 0.35);
       });
     });
 
-    // Bass — sine, warm
+    // Walking bass — sine, punchy with quick attack
     BASS.forEach(([freq, beat]) => {
       const t0  = loopStart + beat * BEAT;
-      const dur = BEAT * 1.6;
-      const osc  = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(master);
+      const dur = BEAT * 0.82;
+      const osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.connect(gain); gain.connect(master);
       osc.type = "sine";
       osc.frequency.setValueAtTime(freq, t0);
-      envelope(gain, ctx, t0, 0.22, 0.04, dur - 0.1, 0.08);
-      osc.start(t0);
-      osc.stop(t0 + dur + 0.1);
+      // Slight pitch slide up for walking feel
+      osc.frequency.linearRampToValueAtTime(freq * 1.01, t0 + 0.05);
+      envelope(gain, ctx, t0, 0.28, 0.02, dur - 0.05, 0.07);
+      osc.start(t0); osc.stop(t0 + dur + 0.08);
     });
+
+    // Brushed hi-hat — filtered white noise, every 2 beats (on the offbeat)
+    for (let b = 0; b < LOOP_BEATS; b += 2) {
+      const t0     = loopStart + (b + 0.5) * BEAT;
+      const bufSz  = ctx.sampleRate * 0.06;
+      const buf    = ctx.createBuffer(1, bufSz, ctx.sampleRate);
+      const d      = buf.getChannelData(0);
+      for (let i = 0; i < bufSz; i++) d[i] = Math.random() * 2 - 1;
+      const src    = ctx.createBufferSource();
+      src.buffer   = buf;
+      const filter = ctx.createBiquadFilter();
+      filter.type  = "highpass"; filter.frequency.value = 7000;
+      const gain   = ctx.createGain();
+      src.connect(filter); filter.connect(gain); gain.connect(master);
+      envelope(gain, ctx, t0, 0.04, 0.002, 0.03, 0.025);
+      src.start(t0); src.stop(t0 + 0.08);
+    }
 
     const loopDur = LOOP_BEATS * BEAT;
     const msUntil = (loopStart + loopDur - ctx.currentTime) * 1000 - 200;
@@ -229,12 +255,10 @@ export function useBackgroundMusic() {
     const ctx = getCtx();
     if (!ctx) return;
     if (ctx.state === "suspended") ctx.resume();
-
     const master = ctx.createGain();
-    master.gain.setValueAtTime(mutedRef.current ? 0 : 0.65, ctx.currentTime);
+    master.gain.setValueAtTime(mutedRef.current ? 0 : 0.7, ctx.currentTime);
     master.connect(ctx.destination);
     masterRef.current = master;
-
     playingRef.current = true;
     scheduleLoop(ctx.currentTime);
   }, [scheduleLoop]);
@@ -247,22 +271,17 @@ export function useBackgroundMusic() {
       if (ctx) masterRef.current.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.5);
       masterRef.current = null;
     }
+    reverbRef.current = null;
   }, []);
 
   const setMuted = useCallback((muted: boolean) => {
     mutedRef.current = muted;
     if (masterRef.current) {
       const ctx = getCtx();
-      if (ctx) {
-        masterRef.current.gain.linearRampToValueAtTime(
-          muted ? 0 : 0.65,
-          ctx.currentTime + 0.3
-        );
-      }
+      if (ctx) masterRef.current.gain.linearRampToValueAtTime(muted ? 0 : 0.7, ctx.currentTime + 0.3);
     }
   }, []);
 
   useEffect(() => () => { stop(); }, [stop]);
-
   return { start, stop, setMuted };
 }

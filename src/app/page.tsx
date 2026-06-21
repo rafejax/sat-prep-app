@@ -110,50 +110,100 @@ function HomeSection({
         )}
       </div>
 
-      <div className="mb-2 text-5xl">🎓</div>
+      <div className="mb-3 text-5xl">🎓</div>
       <div className="mb-2"><Logo size="lg" /></div>
-      <p className="mb-8 text-blue-400 text-sm">Daily Practice Challenge</p>
+      <p className="mb-10 text-sm font-semibold uppercase tracking-widest text-blue-500">Daily Practice Challenge</p>
 
-      <div className="grid w-full max-w-sm gap-4">
-        <button onClick={() => onNavigate("psat")}
-          className="flex items-center gap-4 rounded-2xl border-2 border-indigo-600/60 bg-indigo-950/40 px-5 py-5 text-left transition hover:border-indigo-400 hover:bg-indigo-900/40">
-          <span className="text-3xl">📘</span>
-          <div className="flex-1">
+      <div className="grid w-full max-w-sm gap-3">
+        {/* PSAT card */}
+        <button
+          onClick={() => onNavigate("psat")}
+          className="group flex items-center gap-4 rounded-2xl px-5 py-5 text-left transition-all duration-200"
+          style={{
+            background: "linear-gradient(135deg, #1e1b4b 0%, #0f0a2e 100%)",
+            border: "1px solid rgba(99,102,241,0.35)",
+            boxShadow: "0 4px 24px rgba(99,102,241,0.1)",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(129,140,248,0.6)";
+            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 32px rgba(99,102,241,0.22)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(99,102,241,0.35)";
+            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 24px rgba(99,102,241,0.1)";
+          }}
+        >
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-2xl" style={{ background: "rgba(99,102,241,0.2)", border: "1px solid rgba(99,102,241,0.3)" }}>📘</div>
+          <div className="flex-1 text-left">
             <p className="font-black text-white">PSAT Practice</p>
-            <p className="text-sm text-indigo-300">Foundational concepts · 10 questions</p>
+            <p className="text-xs text-indigo-400">Foundational · 10 questions</p>
           </div>
           {badge(psatSave) && <span className={`shrink-0 text-xs font-bold ${badge(psatSave)!.color}`}>{badge(psatSave)!.text}</span>}
+          <span className="text-indigo-500 opacity-60 transition-opacity group-hover:opacity-100">›</span>
         </button>
 
-        <button onClick={() => onNavigate("sat")}
-          className="flex items-center gap-4 rounded-2xl border-2 border-blue-600/60 bg-blue-950/40 px-5 py-5 text-left transition hover:border-blue-400 hover:bg-blue-900/40">
-          <span className="text-3xl">📗</span>
-          <div className="flex-1">
+        {/* SAT card */}
+        <button
+          onClick={() => onNavigate("sat")}
+          className="group flex items-center gap-4 rounded-2xl px-5 py-5 text-left transition-all duration-200"
+          style={{
+            background: "linear-gradient(135deg, #0c1a3a 0%, #060e28 100%)",
+            border: "1px solid rgba(59,130,246,0.35)",
+            boxShadow: "0 4px 24px rgba(59,130,246,0.1)",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(96,165,250,0.6)";
+            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 32px rgba(59,130,246,0.22)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(59,130,246,0.35)";
+            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 24px rgba(59,130,246,0.1)";
+          }}
+        >
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-2xl" style={{ background: "rgba(59,130,246,0.2)", border: "1px solid rgba(59,130,246,0.3)" }}>📗</div>
+          <div className="flex-1 text-left">
             <p className="font-black text-white">SAT Practice</p>
-            <p className="text-sm text-blue-300">Advanced concepts · 10 questions</p>
+            <p className="text-xs text-blue-400">Advanced · 10 questions</p>
           </div>
           {badge(satSave) && <span className={`shrink-0 text-xs font-bold ${badge(satSave)!.color}`}>{badge(satSave)!.text}</span>}
+          <span className="text-blue-500 opacity-60 transition-opacity group-hover:opacity-100">›</span>
         </button>
 
-        <button onClick={() => onNavigate("leaderboard")}
-          className="flex items-center gap-4 rounded-2xl border-2 border-yellow-600/40 bg-yellow-950/20 px-5 py-5 text-left transition hover:border-yellow-400 hover:bg-yellow-900/20">
-          <span className="text-3xl">🏆</span>
-          <div>
+        {/* Leaderboard card */}
+        <button
+          onClick={() => onNavigate("leaderboard")}
+          className="group flex items-center gap-4 rounded-2xl px-5 py-5 text-left transition-all duration-200"
+          style={{
+            background: "linear-gradient(135deg, #1c1400 0%, #0f0b00 100%)",
+            border: "1px solid rgba(234,179,8,0.3)",
+            boxShadow: "0 4px 24px rgba(234,179,8,0.07)",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(250,204,21,0.55)";
+            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 32px rgba(234,179,8,0.16)";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLButtonElement).style.border = "1px solid rgba(234,179,8,0.3)";
+            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 24px rgba(234,179,8,0.07)";
+          }}
+        >
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-2xl" style={{ background: "rgba(234,179,8,0.15)", border: "1px solid rgba(234,179,8,0.25)" }}>🏆</div>
+          <div className="flex-1 text-left">
             <p className="font-black text-white">Leaderboard</p>
-            <p className="text-sm text-yellow-300">Weekly &amp; all-time rankings</p>
+            <p className="text-xs text-yellow-600">Weekly &amp; all-time rankings</p>
           </div>
+          <span className="text-yellow-700 opacity-60 transition-opacity group-hover:opacity-100">›</span>
         </button>
       </div>
 
-      <div className="mt-10 rounded-xl border border-blue-900/50 bg-blue-950/20 px-5 py-4 text-sm text-slate-400 max-w-sm w-full text-left">
-        <p className="font-semibold text-blue-300 mb-1">How it works</p>
-        <ul className="space-y-1">
-          <li>· Select a question by point value (200–1000)</li>
+      <div className="mt-8 w-full max-w-sm rounded-xl px-5 py-4 text-left" style={{ background: "rgba(15,23,42,0.5)", border: "1px solid rgba(30,41,59,0.8)" }}>
+        <p className="mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">How it works</p>
+        <ul className="space-y-1 text-xs text-slate-500">
+          <li>· Pick a question tile (200 – 1,000 pts)</li>
           <li>· Answer within 60 seconds</li>
-          <li>· First attempt counts toward the leaderboard</li>
-          <li>· Exit and return anytime — progress is saved</li>
-          <li>· New questions every day at midnight ET</li>
-          <li>· Weekly leaderboard resets every Monday at midnight ET</li>
+          <li>· First attempt counts toward leaderboard</li>
+          <li>· Exit and return anytime — progress saves</li>
+          <li>· Fresh questions every day at midnight ET</li>
         </ul>
       </div>
     </div>
