@@ -7,6 +7,7 @@ type Props = {
   score: number;
   maxScore: number;
   mode: "PSAT" | "SAT";
+  userId?: string;
   alreadySubmitted: boolean;
   onSubmitted: () => void;
   onViewLeaderboard: () => void;
@@ -18,6 +19,7 @@ export default function ResultScreen({
   score,
   maxScore,
   mode,
+  userId,
   alreadySubmitted,
   onSubmitted,
   onViewLeaderboard,
@@ -35,7 +37,7 @@ export default function ResultScreen({
     fetch("/api/leaderboard", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ player_name: playerName, score, mode }),
+      body: JSON.stringify({ player_name: playerName, score, mode, user_id: userId ?? null }),
     })
       .then(() => {
         setSubmitStatus("done");

@@ -319,7 +319,7 @@ function GameSection({ mode, user, subscribed, onBack, onGoLeaderboard, onShowAu
     return (
       <ResultScreen
         playerName={playerName} score={score} maxScore={MAX_SCORE}
-        mode={mode} alreadySubmitted={submitted}
+        mode={mode} userId={user?.id} alreadySubmitted={submitted}
         onSubmitted={handleSubmitted}
         onViewLeaderboard={onGoLeaderboard}
         onReplay={handleReplay}

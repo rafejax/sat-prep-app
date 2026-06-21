@@ -39,6 +39,13 @@ export default function ProfilePage() {
         .eq("id", user.id);
       if (dbError) throw dbError;
 
+      // Rename all leaderboard entries so the new name shows on rankings
+      await fetch("/api/leaderboard", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: user.id, new_name: name }),
+      });
+
       setMessage({ text: "Display name updated successfully.", ok: true });
     } catch (err: unknown) {
       setMessage({ text: err instanceof Error ? err.message : "Failed to save. Please try again.", ok: false });
