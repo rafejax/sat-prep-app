@@ -45,23 +45,36 @@ export async function GET(req: NextRequest) {
     const { data, error } = await query;
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    // Build a map of user_id → current display_name from the profiles table so
-    // the leaderboard always shows the player's current display name, regardless
-    // of what name was stored when the score was submitted.
+    // Build a map of user_id → current display_name so the leaderboard always
+    // reflects the player's current display name regardless of what was stored
+    // when the score was submitted.
     const userIds = [...new Set(
       (data ?? []).map(e => e.user_id).filter(Boolean) as string[]
     )];
 
     const nameMap = new Map<string, string>();
     if (userIds.length > 0) {
-      // Prefer service client (bypasses RLS); fall back to anon client
-      const client = getServiceClient() ?? supabase;
-      const { data: profiles } = await client
-        .from("profiles")
-        .select("id, display_name")
-        .in("id", userIds);
-      for (const p of profiles ?? []) {
-        if (p.display_name) nameMap.set(p.id, p.display_name);
+      // 1. Try the SECURITY DEFINER RPC — works with the anon key without
+      //    needing SUPABASE_SERVICE_ROLE_KEY in Vercel env vars.
+      const { data: rpcData, error: rpcErr } = await supabase
+        .rpc("get_leaderboard_names", { user_ids: userIds });
+
+      if (!rpcErr && rpcData) {
+        for (const p of rpcData as { id: string; display_name: string }[]) {
+          if (p.display_name) nameMap.set(p.id, p.display_name);
+        }
+      } else {
+        // 2. Fall back to service-role client (bypasses RLS entirely)
+        const svc = getServiceClient();
+        if (svc) {
+          const { data: profiles } = await svc
+            .from("profiles")
+            .select("id, display_name")
+            .in("id", userIds);
+          for (const p of profiles ?? []) {
+            if (p.display_name) nameMap.set(p.id as string, p.display_name as string);
+          }
+        }
       }
     }
 
