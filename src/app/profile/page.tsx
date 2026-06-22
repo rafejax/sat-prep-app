@@ -28,25 +28,36 @@ export default function ProfilePage() {
     setSaving(true);
     setMessage(null);
     try {
+      const oldName = user.displayName;
+
+      // 1. Update auth metadata
       const { error: authError } = await supabase.auth.updateUser({
         data: { display_name: name },
       });
       if (authError) throw authError;
 
+      // 2. Update profiles table
       const { error: dbError } = await supabase
         .from("profiles")
         .update({ display_name: name })
         .eq("id", user.id);
       if (dbError) throw dbError;
 
-      // Rename all leaderboard entries (including legacy unclaimed rows) so the
-      // new name shows on rankings immediately
-      await fetch("/api/leaderboard", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: user.id, old_name: user.displayName, new_name: name }),
-      });
+      // 3. Rename leaderboard rows that already have this user's id
+      await supabase
+        .from("leaderboard")
+        .update({ player_name: name })
+        .eq("user_id", user.id);
 
+      // 4. Claim + rename legacy rows (no user_id) that match the old display name
+      await supabase
+        .from("leaderboard")
+        .update({ player_name: name, user_id: user.id })
+        .is("user_id", null)
+        .eq("player_name", oldName);
+
+      // Keep local user state in sync so a second rename uses the new name as old_name
+      setUser({ ...user, displayName: name });
       setMessage({ text: "Display name updated successfully.", ok: true });
     } catch (err: unknown) {
       setMessage({ text: err instanceof Error ? err.message : "Failed to save. Please try again.", ok: false });
