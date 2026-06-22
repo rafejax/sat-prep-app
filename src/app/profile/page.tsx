@@ -43,18 +43,17 @@ export default function ProfilePage() {
         .eq("id", user.id);
       if (dbError) throw dbError;
 
-      // 3. Rename leaderboard rows that already have this user's id
-      await supabase
-        .from("leaderboard")
-        .update({ player_name: name })
-        .eq("user_id", user.id);
-
-      // 4. Claim + rename legacy rows (no user_id) that match the old display name
-      await supabase
-        .from("leaderboard")
-        .update({ player_name: name, user_id: user.id })
-        .is("user_id", null)
-        .eq("player_name", oldName);
+      // 3. Rename leaderboard rows via the API route (uses service-role client
+      //    so it works regardless of RLS on the leaderboard table)
+      const patchRes = await fetch("/api/leaderboard", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: user.id, old_name: oldName, new_name: name }),
+      });
+      if (!patchRes.ok) {
+        const err = await patchRes.json().catch(() => ({}));
+        throw new Error(err.error ?? "Failed to update leaderboard name");
+      }
 
       // Keep local user state in sync so a second rename uses the new name as old_name
       setUser({ ...user, displayName: name });
