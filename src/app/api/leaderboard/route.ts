@@ -11,7 +11,7 @@ function getServiceClient() {
 }
 
 const memoryStore: {
-  id: number; player_name: string; score: number; mode: string; date: string; user_id?: string;
+  id: number; player_name: string; score: number; mode: string; date: string; user_id?: string | null;
 }[] = [];
 
 /** Returns the most recent Monday in Eastern Time as a YYYY-MM-DD string. */
