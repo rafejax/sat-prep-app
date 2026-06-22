@@ -28,8 +28,6 @@ export default function ProfilePage() {
     setSaving(true);
     setMessage(null);
     try {
-      const oldName = user.displayName;
-
       // 1. Update auth metadata
       const { error: authError } = await supabase.auth.updateUser({
         data: { display_name: name },

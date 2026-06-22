@@ -62,7 +62,7 @@ const FAQS: FAQItem[] = [
     q: "How do I update my display name or account info?",
     a: (
       <>
-        Go to your <Link href="/profile" className="text-blue-400 hover:text-blue-300 underline">Profile page</Link> by clicking <strong>Profile</strong> next to your name on the home screen. From there you can update your display name — the change will also update your name on the leaderboard automatically. Your email address cannot be changed after signup.
+        Go to your <Link href="/profile" className="text-blue-400 hover:text-blue-300 underline">Profile page</Link> by clicking <strong>Profile</strong> next to your name on the home screen. From there you can update your display name. Your display name is locked in when you submit a score, so any name change will apply to future games. Your email address cannot be changed after signup.
       </>
     ),
   },
