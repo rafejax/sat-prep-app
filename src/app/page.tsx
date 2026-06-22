@@ -220,9 +220,13 @@ function GameSection({ mode, user, subscribed, onBack, onGoLeaderboard, onShowAu
       setAnswered(save.answered);
       setSubmitted(save.submittedToLeaderboard);
       if (save.completed) setPhase("result");
-      else if (save.playerName) setPhase("playing");
+      else setPhase("playing");
     } else if (user) {
-      setPlayerName(user.displayName);
+      // Logged-in users skip name entry — always play under their display name
+      const name = user.displayName;
+      setPlayerName(name);
+      setPhase("playing");
+      writeSave({ date: TODAY, mode, playerName: name, score: 0, answered: {}, completed: false, submittedToLeaderboard: false }, user.id);
     }
     setMounted(true);
   }, [mode, user?.id]); // eslint-disable-line react-hooks/exhaustive-deps
