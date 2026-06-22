@@ -1,14 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
-
-/** Service-role client — bypasses RLS so the rename endpoint can update any row. */
-function getServiceClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
-  return createClient(url, key);
-}
 
 const memoryStore: {
   id: number; player_name: string; score: number; mode: string; date: string; user_id?: string | null;
@@ -45,62 +36,16 @@ export async function GET(req: NextRequest) {
     const { data, error } = await query;
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    // Build a map of user_id → current display_name so the leaderboard always
-    // reflects the player's current display name regardless of what was stored
-    // when the score was submitted.
-    const userIds = [...new Set(
-      (data ?? []).map(e => e.user_id).filter(Boolean) as string[]
-    )];
-
-    const nameMap = new Map<string, string>();
-    if (userIds.length > 0) {
-      // 1. Try the SECURITY DEFINER RPC — works with the anon key without
-      //    needing SUPABASE_SERVICE_ROLE_KEY in Vercel env vars.
-      const { data: rpcData, error: rpcErr } = await supabase
-        .rpc("get_leaderboard_names", { user_ids: userIds });
-
-      if (!rpcErr && rpcData) {
-        for (const p of rpcData as { id: string; display_name: string }[]) {
-          if (p.display_name) nameMap.set(p.id, p.display_name);
-        }
-      } else {
-        // 2. Fall back to service-role client (bypasses RLS entirely)
-        const svc = getServiceClient();
-        if (svc) {
-          const { data: profiles } = await svc
-            .from("profiles")
-            .select("id, display_name")
-            .in("id", userIds);
-          for (const p of profiles ?? []) {
-            if (p.display_name) nameMap.set(p.id as string, p.display_name as string);
-          }
-        }
-      }
-    }
-
-    // Build a secondary lookup: any player_name that appears in a linked row
-    // (user_id IS NOT NULL) maps back to that user_id. This lets us merge old
-    // guest rows (user_id = null) that share a name with a linked row.
-    const playerNameToUserId = new Map<string, string>();
-    for (const entry of data ?? []) {
-      if (entry.user_id && entry.player_name) {
-        playerNameToUserId.set(entry.player_name, entry.user_id);
-      }
-    }
-
-    // Aggregate: use linked user_id when available, otherwise check if the
-    // player_name was ever used by a logged-in user, otherwise treat as guest.
+    // Aggregate by user_id (logged-in) or player_name (guest).
+    // player_name is permanent — it's locked in at the time the score is submitted.
     const byKey = new Map<string, { player_name: string; score: number; mode: string; date: string }>();
     for (const entry of data ?? []) {
-      const effectiveUserId = entry.user_id ?? playerNameToUserId.get(entry.player_name) ?? null;
-      const key = effectiveUserId ?? `guest:${entry.player_name}`;
-      const displayName = (effectiveUserId && nameMap.get(effectiveUserId)) ?? entry.player_name;
+      const key = entry.user_id ?? `guest:${entry.player_name}`;
       const existing = byKey.get(key);
       if (!existing) {
-        byKey.set(key, { player_name: displayName, score: entry.score, mode: entry.mode, date: entry.date });
+        byKey.set(key, { player_name: entry.player_name, score: entry.score, mode: entry.mode, date: entry.date });
       } else {
         existing.score += entry.score;
-        existing.player_name = displayName;
       }
     }
 
@@ -140,38 +85,3 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(saved);
 }
 
-/** PATCH /api/leaderboard — rename all entries for a user when they change their display name.
- *  Also claims legacy rows (no user_id) that match the old player_name so historical
- *  scores get renamed and linked to the account. */
-export async function PATCH(req: NextRequest) {
-  const body = await req.json();
-  const { user_id, old_name, new_name } = body as { user_id?: string; old_name?: string; new_name?: string };
-
-  if (!user_id || !new_name) {
-    return NextResponse.json({ error: "user_id and new_name are required" }, { status: 400 });
-  }
-
-  const svc = getServiceClient();
-  if (!svc) return NextResponse.json({ error: "Service client unavailable" }, { status: 500 });
-
-  const safeName = String(new_name).slice(0, 32);
-
-  // 1. Rename rows already linked to this account
-  const { error: e1 } = await svc
-    .from("leaderboard")
-    .update({ player_name: safeName })
-    .eq("user_id", user_id);
-  if (e1) return NextResponse.json({ error: e1.message }, { status: 500 });
-
-  // 2. Claim + rename legacy rows that have no user_id but match the old name
-  if (old_name) {
-    const { error: e2 } = await svc
-      .from("leaderboard")
-      .update({ player_name: safeName, user_id })
-      .is("user_id", null)
-      .eq("player_name", String(old_name).slice(0, 32));
-    if (e2) return NextResponse.json({ error: e2.message }, { status: 500 });
-  }
-
-  return NextResponse.json({ ok: true });
-}

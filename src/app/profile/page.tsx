@@ -43,10 +43,6 @@ export default function ProfilePage() {
         .eq("id", user.id);
       if (dbError) throw dbError;
 
-      // The DB trigger (on_profile_display_name_change) automatically updates
-      // all leaderboard rows for this user when profiles.display_name changes.
-      // No extra API call needed here.
-
       // Keep local user state in sync so a second rename uses the new name as old_name
       setUser({ ...user, displayName: name });
       setMessage({ text: "Display name updated successfully.", ok: true });
