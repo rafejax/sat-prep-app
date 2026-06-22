@@ -59,10 +59,10 @@ const FAQS: FAQItem[] = [
     a: "No. Your card is not charged during the 7-day free trial. Billing begins only after the trial ends. You can cancel at any time during the trial and you will never be charged.",
   },
   {
-    q: "How do I update my display name or account info?",
+    q: "Can I change my display name or account info?",
     a: (
       <>
-        Go to your <Link href="/profile" className="text-blue-400 hover:text-blue-300 underline">Profile page</Link> by clicking <strong>Profile</strong> next to your name on the home screen. From there you can update your display name. Your display name is locked in when you submit a score, so any name change will apply to future games. Your email address cannot be changed after signup.
+        Go to your <Link href="/profile" className="text-blue-400 hover:text-blue-300 underline">Profile page</Link> by clicking <strong>Profile</strong> next to your name on the home screen. Your display name is permanent and cannot be changed after your account is created. Your email address also cannot be changed after signup.
       </>
     ),
   },
