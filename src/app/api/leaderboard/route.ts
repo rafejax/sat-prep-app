@@ -78,19 +78,29 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    // Aggregate by user_id (logged-in) or player_name (guest), always using
-    // the live display name from profiles for logged-in players.
+    // Build a secondary lookup: any player_name that appears in a linked row
+    // (user_id IS NOT NULL) maps back to that user_id. This lets us merge old
+    // guest rows (user_id = null) that share a name with a linked row.
+    const playerNameToUserId = new Map<string, string>();
+    for (const entry of data ?? []) {
+      if (entry.user_id && entry.player_name) {
+        playerNameToUserId.set(entry.player_name, entry.user_id);
+      }
+    }
+
+    // Aggregate: use linked user_id when available, otherwise check if the
+    // player_name was ever used by a logged-in user, otherwise treat as guest.
     const byKey = new Map<string, { player_name: string; score: number; mode: string; date: string }>();
     for (const entry of data ?? []) {
-      const key = entry.user_id ?? `guest:${entry.player_name}`;
-      // Live name takes priority; fall back to stored player_name
-      const displayName = (entry.user_id && nameMap.get(entry.user_id)) ?? entry.player_name;
+      const effectiveUserId = entry.user_id ?? playerNameToUserId.get(entry.player_name) ?? null;
+      const key = effectiveUserId ?? `guest:${entry.player_name}`;
+      const displayName = (effectiveUserId && nameMap.get(effectiveUserId)) ?? entry.player_name;
       const existing = byKey.get(key);
       if (!existing) {
         byKey.set(key, { player_name: displayName, score: entry.score, mode: entry.mode, date: entry.date });
       } else {
         existing.score += entry.score;
-        existing.player_name = displayName; // always reflect current name
+        existing.player_name = displayName;
       }
     }
 
