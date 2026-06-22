@@ -43,17 +43,9 @@ export default function ProfilePage() {
         .eq("id", user.id);
       if (dbError) throw dbError;
 
-      // 3. Rename leaderboard rows via the API route (uses service-role client
-      //    so it works regardless of RLS on the leaderboard table)
-      const patchRes = await fetch("/api/leaderboard", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user_id: user.id, old_name: oldName, new_name: name }),
-      });
-      if (!patchRes.ok) {
-        const err = await patchRes.json().catch(() => ({}));
-        throw new Error(err.error ?? "Failed to update leaderboard name");
-      }
+      // The DB trigger (on_profile_display_name_change) automatically updates
+      // all leaderboard rows for this user when profiles.display_name changes.
+      // No extra API call needed here.
 
       // Keep local user state in sync so a second rename uses the new name as old_name
       setUser({ ...user, displayName: name });
