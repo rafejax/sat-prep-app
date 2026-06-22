@@ -45,24 +45,42 @@ export async function GET(req: NextRequest) {
     const { data, error } = await query;
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    // Aggregate by user_id (logged-in players) or player_name (guests).
-    // Use the most recently seen player_name for each user so display name
-    // changes are reflected immediately after a rename.
+    // Build a map of user_id → current display_name from the profiles table so
+    // the leaderboard always shows the player's current display name, regardless
+    // of what name was stored when the score was submitted.
+    const userIds = [...new Set(
+      (data ?? []).map(e => e.user_id).filter(Boolean) as string[]
+    )];
+
+    const nameMap = new Map<string, string>();
+    if (userIds.length > 0) {
+      // Prefer service client (bypasses RLS); fall back to anon client
+      const client = getServiceClient() ?? supabase;
+      const { data: profiles } = await client
+        .from("profiles")
+        .select("id, display_name")
+        .in("id", userIds);
+      for (const p of profiles ?? []) {
+        if (p.display_name) nameMap.set(p.id, p.display_name);
+      }
+    }
+
+    // Aggregate by user_id (logged-in) or player_name (guest), always using
+    // the live display name from profiles for logged-in players.
     const byKey = new Map<string, { player_name: string; score: number; mode: string; date: string }>();
     for (const entry of data ?? []) {
       const key = entry.user_id ?? `guest:${entry.player_name}`;
+      // Live name takes priority; fall back to stored player_name
+      const displayName = (entry.user_id && nameMap.get(entry.user_id)) ?? entry.player_name;
       const existing = byKey.get(key);
       if (!existing) {
-        byKey.set(key, { player_name: entry.player_name, score: entry.score, mode: entry.mode, date: entry.date });
+        byKey.set(key, { player_name: displayName, score: entry.score, mode: entry.mode, date: entry.date });
       } else {
         existing.score += entry.score;
-        // Track the most recent entry's name so renames show up
-        if (entry.date > existing.date) {
-          existing.player_name = entry.player_name;
-          existing.date = entry.date;
-        }
+        existing.player_name = displayName; // always reflect current name
       }
     }
+
     const ranked = [...byKey.values()].sort((a, b) => b.score - a.score).slice(0, 50);
     return NextResponse.json(ranked);
   }
