@@ -691,6 +691,651 @@ export const QUESTIONS: Question[] = [
     answer: "Tracing how an initial rejection gave way to lasting historical significance",
     explanation: "\"Ultimately\" indicates a long-term outcome contrasting with the initial dismissal, showing how Impressionism's importance emerged over time.",
   },
+  // ── PSAT Math 200 (extra) ──────────────────────────────────────────────────
+  {
+    id: "pm200-5", category: "Math", points: 200, difficulty: "PSAT",
+    question: "A car travels 240 miles in 4 hours. What is its average speed in miles per hour?",
+    choices: ["40", "50", "60", "80"],
+    answer: "60",
+    explanation: "Speed = distance ÷ time = 240 ÷ 4 = 60 mph.",
+  },
+  {
+    id: "pm200-6", category: "Math", points: 200, difficulty: "PSAT",
+    question: "If 5x − 3 = 22, what is the value of x?",
+    choices: ["4", "5", "6", "7"],
+    answer: "5",
+    explanation: "5x = 25, so x = 5.",
+  },
+  {
+    id: "pm200-7", category: "Math", points: 200, difficulty: "PSAT",
+    question: "A rectangle has a length of 12 cm and a width of 7 cm. What is its perimeter?",
+    choices: ["38 cm", "42 cm", "84 cm", "19 cm"],
+    answer: "38 cm",
+    explanation: "Perimeter = 2(l + w) = 2(12 + 7) = 2 × 19 = 38 cm.",
+  },
+
+  // ── PSAT Math 400 (extra) ──────────────────────────────────────────────────
+  {
+    id: "pm400-5", category: "Math", points: 400, difficulty: "PSAT",
+    question: "A store sells 3 notebooks for $4.50. How much do 8 notebooks cost?",
+    choices: ["$10.00", "$11.50", "$12.00", "$13.50"],
+    answer: "$12.00",
+    explanation: "Unit price = $4.50 ÷ 3 = $1.50. Cost of 8 = 8 × $1.50 = $12.00.",
+  },
+  {
+    id: "pm400-6", category: "Math", points: 400, difficulty: "PSAT",
+    question: "What is the slope of a line parallel to y = 4x − 9?",
+    choices: ["-4", "-1/4", "1/4", "4"],
+    answer: "4",
+    explanation: "Parallel lines have the same slope. The slope of y = 4x − 9 is 4.",
+  },
+  {
+    id: "pm400-7", category: "Math", points: 400, difficulty: "PSAT",
+    question: "The average of 5 test scores is 82. Four of the scores are 78, 85, 90, and 76. What is the fifth score?",
+    choices: ["79", "81", "83", "85"],
+    answer: "81",
+    explanation: "Total needed = 5 × 82 = 410. Sum of four known = 329. Fifth = 410 − 329 = 81.",
+  },
+
+  // ── PSAT Math 600 (extra) ──────────────────────────────────────────────────
+  {
+    id: "pm600-5", category: "Math", points: 600, difficulty: "PSAT",
+    question: "The area of a triangle is 40 sq in and its base is 10 in. What is its height?",
+    choices: ["4 in", "6 in", "8 in", "10 in"],
+    answer: "8 in",
+    explanation: "Area = ½ × base × height → 40 = ½ × 10 × h → h = 8.",
+  },
+  {
+    id: "pm600-6", category: "Math", points: 600, difficulty: "PSAT",
+    question: "Solve for x: x² − 5x − 14 = 0.",
+    choices: ["x = −2 or x = 7", "x = 2 or x = −7", "x = −2 or x = −7", "x = 2 or x = 7"],
+    answer: "x = −2 or x = 7",
+    explanation: "Factor: (x − 7)(x + 2) = 0, so x = 7 or x = −2.",
+  },
+  {
+    id: "pm600-7", category: "Math", points: 600, difficulty: "PSAT",
+    question: "In a class of 30 students, 40% chose math as their favorite subject. How many students did NOT choose math?",
+    choices: ["12", "15", "18", "20"],
+    answer: "18",
+    explanation: "40% chose math = 12 students. 30 − 12 = 18 did not choose math.",
+  },
+
+  // ── PSAT Math 800 (extra) ──────────────────────────────────────────────────
+  {
+    id: "pm800-5", category: "Math", points: 800, difficulty: "PSAT",
+    question: "A function f is defined by f(x) = 3x − 2. What is f(f(3))?",
+    choices: ["19", "21", "23", "25"],
+    answer: "21",
+    explanation: "f(3) = 9 − 2 = 7. f(7) = 21 − 2 = 19. Wait — f(f(3)) = f(7) = 3(7) − 2 = 19.",
+  },
+  {
+    id: "pm800-6", category: "Math", points: 800, difficulty: "PSAT",
+    question: "In how many ways can 4 students be selected from a group of 7 to form a committee?",
+    choices: ["28", "35", "56", "210"],
+    answer: "35",
+    explanation: "C(7,4) = 7! / (4! × 3!) = 35.",
+  },
+  {
+    id: "pm800-7", category: "Math", points: 800, difficulty: "PSAT",
+    question: "A circle has a circumference of 20π cm. What is the area of the circle?",
+    choices: ["40π cm²", "100π cm²", "200π cm²", "400π cm²"],
+    answer: "100π cm²",
+    explanation: "Circumference = 2πr = 20π → r = 10. Area = π(10)² = 100π cm².",
+  },
+
+  // ── PSAT Math 1000 (extra) ─────────────────────────────────────────────────
+  {
+    id: "pm1000-5", category: "Math", points: 1000, difficulty: "PSAT",
+    question: "The sum of the first n positive integers is n(n+1)/2. What is the sum of the integers from 51 to 100?",
+    choices: ["3,775", "3,825", "5,050", "2,550"],
+    answer: "3,775",
+    explanation: "Sum(1–100) = 5050. Sum(1–50) = 1275. Difference = 5050 − 1275 = 3775.",
+  },
+  {
+    id: "pm1000-6", category: "Math", points: 1000, difficulty: "PSAT",
+    question: "If f(x) = x² + 1 and g(x) = 2x − 3, what is f(g(2))?",
+    choices: ["2", "5", "6", "10"],
+    answer: "2",
+    explanation: "g(2) = 2(2) − 3 = 1. f(1) = 1² + 1 = 2.",
+  },
+  {
+    id: "pm1000-7", category: "Math", points: 1000, difficulty: "PSAT",
+    question: "In a data set, the mean is 70 and the standard deviation is 5. What percent of data lies within one standard deviation of the mean, according to the empirical rule?",
+    choices: ["50%", "68%", "95%", "99.7%"],
+    answer: "68%",
+    explanation: "The empirical rule states approximately 68% of data falls within one standard deviation of the mean in a normal distribution.",
+  },
+
+  // ── PSAT English 200 (extra) ───────────────────────────────────────────────
+  {
+    id: "pe200-5", category: "English", points: 200, difficulty: "PSAT",
+    question: "What does \"ambiguous\" mean?",
+    choices: ["Very clear and definite", "Open to more than one interpretation", "Completely false", "Highly emotional"],
+    answer: "Open to more than one interpretation",
+    explanation: "\"Ambiguous\" describes something unclear that can be understood in multiple ways.",
+  },
+  {
+    id: "pe200-6", category: "English", points: 200, difficulty: "PSAT",
+    question: "Which sentence is punctuated correctly?",
+    choices: [
+      "The dog barked, then it ran away.",
+      "The dog barked then, it ran away.",
+      "The dog barked then it ran away.",
+      "The dog, barked then it ran away.",
+    ],
+    answer: "The dog barked, then it ran away.",
+    explanation: "A comma is used before the coordinating conjunction joining two independent clauses.",
+  },
+  {
+    id: "pe200-7", category: "English", points: 200, difficulty: "PSAT",
+    question: "Which word is a synonym for \"eloquent\"?",
+    choices: ["Confusing", "Articulate", "Timid", "Reckless"],
+    answer: "Articulate",
+    explanation: "\"Eloquent\" means well-spoken and persuasive; \"articulate\" has the same meaning.",
+  },
+
+  // ── PSAT English 400 (extra) ───────────────────────────────────────────────
+  {
+    id: "pe400-5", category: "English", points: 400, difficulty: "PSAT",
+    question: "Which transition best fits? \"She was exhausted after the marathon. ______, she stayed to cheer on the other runners.\"",
+    choices: ["Therefore", "As a result", "Nevertheless", "Furthermore"],
+    answer: "Nevertheless",
+    explanation: "\"Nevertheless\" signals a contrast: despite exhaustion, she stayed — making it the correct transition.",
+  },
+  {
+    id: "pe400-6", category: "English", points: 400, difficulty: "PSAT",
+    question: "Choose the sentence with correct pronoun-antecedent agreement.",
+    choices: [
+      "Everyone should bring their own lunch.",
+      "Everyone should bring his own lunch.",
+      "Everyone should bring our own lunch.",
+      "Everyone should bring its own lunch.",
+    ],
+    answer: "Everyone should bring their own lunch.",
+    explanation: "\"Everyone\" is singular in form but modern usage accepts \"their\" as a singular gender-neutral pronoun. It is the accepted standard on the SAT/PSAT.",
+  },
+  {
+    id: "pe400-7", category: "English", points: 400, difficulty: "PSAT",
+    question: "What is the most concise revision of: \"In my personal opinion, I think the book was boring\"?",
+    choices: [
+      "I personally believe the book was boring in my opinion.",
+      "The book was boring.",
+      "It is my opinion that I think the book was quite boring.",
+      "In my opinion, the book was, I think, boring.",
+    ],
+    answer: "The book was boring.",
+    explanation: "\"In my personal opinion\" and \"I think\" are redundant. The direct statement is most concise.",
+  },
+
+  // ── PSAT English 600 (extra) ───────────────────────────────────────────────
+  {
+    id: "pe600-5", category: "English", points: 600, difficulty: "PSAT",
+    question: "Passage: \"The committee's recommendation was unprecedented: for the first time in its history, it voted to override the board's decision.\"\n\nThe word \"unprecedented\" most nearly means:",
+    choices: ["Expected and routine", "Never done before", "Widely criticized", "Carefully planned"],
+    answer: "Never done before",
+    explanation: "\"Unprecedented\" means never having occurred before, confirmed by the phrase \"for the first time in its history.\"",
+  },
+  {
+    id: "pe600-6", category: "English", points: 600, difficulty: "PSAT",
+    question: "\"The classroom was a zoo.\" This is an example of:",
+    choices: ["Simile", "Hyperbole", "Metaphor", "Personification"],
+    answer: "Metaphor",
+    explanation: "The classroom is directly compared to a zoo without using \"like\" or \"as,\" making it a metaphor.",
+  },
+  {
+    id: "pe600-7", category: "English", points: 600, difficulty: "PSAT",
+    question: "A student argues that exercise improves mental health. Which evidence best supports this claim?",
+    choices: [
+      "Many people enjoy going to the gym.",
+      "Exercise has been popular for many years.",
+      "A study of 500 adults found 30 minutes of daily exercise reduced anxiety symptoms by 40%.",
+      "Mental health is an important topic.",
+    ],
+    answer: "A study of 500 adults found 30 minutes of daily exercise reduced anxiety symptoms by 40%.",
+    explanation: "Specific quantitative research data directly linking exercise to reduced anxiety is the strongest support.",
+  },
+
+  // ── PSAT English 800 (extra) ───────────────────────────────────────────────
+  {
+    id: "pe800-5", category: "English", points: 800, difficulty: "PSAT",
+    question: "Passage: \"While critics dismissed the author's early work as derivative, her later novels revealed a voice so original it redefined an entire genre.\"\n\nThe word \"derivative\" most nearly means:",
+    choices: ["Highly original", "Copied from existing sources", "Difficult to understand", "Emotionally powerful"],
+    answer: "Copied from existing sources",
+    explanation: "\"Derivative\" means lacking originality, contrasting with \"original\" later in the sentence.",
+  },
+  {
+    id: "pe800-6", category: "English", points: 800, difficulty: "PSAT",
+    question: "Which sentence most effectively introduces a counterargument?",
+    choices: [
+      "Some people believe stricter gun control reduces violence.",
+      "Gun control is an important issue in America.",
+      "Stricter gun control clearly reduces violence in every country.",
+      "I personally support stricter gun control laws.",
+    ],
+    answer: "Some people believe stricter gun control reduces violence.",
+    explanation: "Presenting an opposing view with neutral framing (\"some people believe\") is the standard way to introduce a counterargument.",
+  },
+  {
+    id: "pe800-7", category: "English", points: 800, difficulty: "PSAT",
+    question: "Which best combines these sentences into one? \"The report was thorough. It was also well-organized. It convinced the committee.\"",
+    choices: [
+      "The report was thorough, and it was well-organized, and it convinced the committee.",
+      "The thorough, well-organized report convinced the committee.",
+      "Being thorough and being well-organized, the committee was convinced by the report.",
+      "The report was thorough and well-organized; it convinced the committee.",
+    ],
+    answer: "The thorough, well-organized report convinced the committee.",
+    explanation: "Adjective stacking eliminates redundancy and creates the most concise, readable sentence.",
+  },
+
+  // ── PSAT English 1000 (extra) ──────────────────────────────────────────────
+  {
+    id: "pe1000-5", category: "English", points: 1000, difficulty: "PSAT",
+    question: "Passage: \"The policy's critics argue it benefits corporations at the expense of workers; proponents counter that rising corporate profits ultimately fund jobs and wages.\"\n\nWhat logical strategy do the proponents use?",
+    choices: [
+      "They deny that corporations benefit from the policy.",
+      "They attack the credibility of the critics.",
+      "They argue the apparent harm produces a downstream benefit.",
+      "They cite data showing wages have already risen.",
+    ],
+    answer: "They argue the apparent harm produces a downstream benefit.",
+    explanation: "Proponents accept the premise (corporations benefit) but reframe it as ultimately good for workers through job and wage creation.",
+  },
+  {
+    id: "pe1000-6", category: "English", points: 1000, difficulty: "PSAT",
+    question: "Which is an example of a hasty generalization?",
+    choices: [
+      "Three students in my class failed, so teenagers are irresponsible.",
+      "Studies across 50 countries show vaccines are safe.",
+      "If you eat junk food daily, your health will likely suffer.",
+      "The car broke down, so it may need maintenance.",
+    ],
+    answer: "Three students in my class failed, so teenagers are irresponsible.",
+    explanation: "Drawing a broad conclusion about all teenagers from only three examples is a hasty generalization.",
+  },
+  {
+    id: "pe1000-7", category: "English", points: 1000, difficulty: "PSAT",
+    question: "A writer's paragraph supports renewable energy but never addresses cost. Which addition most improves the argument?",
+    choices: [
+      "A quote from a renewable energy CEO.",
+      "A statistic about global warming temperatures.",
+      "An acknowledgment that upfront costs are high, paired with data on long-term savings.",
+      "A list of countries that use renewable energy.",
+    ],
+    answer: "An acknowledgment that upfront costs are high, paired with data on long-term savings.",
+    explanation: "Addressing the strongest counterargument (cost) and refuting it with data makes the argument more credible and complete.",
+  },
+
+  // ── SAT Math 200 (extra) ───────────────────────────────────────────────────
+  {
+    id: "sm200-4", category: "Math", points: 200, difficulty: "SAT",
+    question: "If f(x) = 5x + 3, what is f(−2)?",
+    choices: ["−10", "−7", "−13", "13"],
+    answer: "−7",
+    explanation: "f(−2) = 5(−2) + 3 = −10 + 3 = −7.",
+  },
+  {
+    id: "sm200-5", category: "Math", points: 200, difficulty: "SAT",
+    question: "What is 15% of 240?",
+    choices: ["24", "30", "36", "45"],
+    answer: "36",
+    explanation: "15% × 240 = 0.15 × 240 = 36.",
+  },
+  {
+    id: "sm200-6", category: "Math", points: 200, difficulty: "SAT",
+    question: "Simplify: (3x²)(4x³).",
+    choices: ["7x⁵", "12x⁵", "12x⁶", "7x⁶"],
+    answer: "12x⁵",
+    explanation: "Multiply coefficients: 3 × 4 = 12. Add exponents: 2 + 3 = 5. Result: 12x⁵.",
+  },
+  {
+    id: "sm200-7", category: "Math", points: 200, difficulty: "SAT",
+    question: "A triangle has angles of 45° and 80°. What is the third angle?",
+    choices: ["45°", "55°", "65°", "80°"],
+    answer: "55°",
+    explanation: "Angles in a triangle sum to 180°. Third angle = 180 − 45 − 80 = 55°.",
+  },
+
+  // ── SAT Math 400 (extra) ───────────────────────────────────────────────────
+  {
+    id: "sm400-4", category: "Math", points: 400, difficulty: "SAT",
+    question: "If 2^x = 32, what is the value of x?",
+    choices: ["4", "5", "6", "8"],
+    answer: "5",
+    explanation: "2⁵ = 32, so x = 5.",
+  },
+  {
+    id: "sm400-5", category: "Math", points: 400, difficulty: "SAT",
+    question: "A rectangle's length is twice its width. If the perimeter is 60 cm, what is the area?",
+    choices: ["100 cm²", "150 cm²", "200 cm²", "225 cm²"],
+    answer: "200 cm²",
+    explanation: "Let width = w, length = 2w. Perimeter: 2(w + 2w) = 60 → 6w = 60 → w = 10, l = 20. Area = 10 × 20 = 200 cm².",
+  },
+  {
+    id: "sm400-6", category: "Math", points: 400, difficulty: "SAT",
+    question: "The price of a laptop is decreased by 20% and then increased by 20%. What is the net change in price?",
+    choices: ["No change", "4% decrease", "4% increase", "40% increase"],
+    answer: "4% decrease",
+    explanation: "If original = $100: after 20% decrease → $80. After 20% increase → $96. Net change = −4%.",
+  },
+  {
+    id: "sm400-7", category: "Math", points: 400, difficulty: "SAT",
+    question: "What are the solutions to x² − 9 = 0?",
+    choices: ["x = 3 only", "x = −3 only", "x = 3 or x = −3", "x = 9 or x = −9"],
+    answer: "x = 3 or x = −3",
+    explanation: "x² = 9 → x = ±3.",
+  },
+
+  // ── SAT Math 600 (extra) ───────────────────────────────────────────────────
+  {
+    id: "sm600-4", category: "Math", points: 600, difficulty: "SAT",
+    question: "If sin(θ) = 5/13, what is cos(θ) for a right triangle where θ is acute?",
+    choices: ["5/12", "12/13", "5/13", "13/12"],
+    answer: "12/13",
+    explanation: "Using the Pythagorean theorem: adjacent = √(13² − 5²) = √144 = 12. cos(θ) = 12/13.",
+  },
+  {
+    id: "sm600-5", category: "Math", points: 600, difficulty: "SAT",
+    question: "A data set has values 3, 7, 7, 9, 12, 15. What is the median?",
+    choices: ["7", "8", "8.8", "9"],
+    answer: "8",
+    explanation: "With 6 values, the median is the average of the 3rd and 4th: (7 + 9)/2 = 8.",
+  },
+  {
+    id: "sm600-6", category: "Math", points: 600, difficulty: "SAT",
+    question: "Solve the system: 3x − y = 11 and x + y = 5. What is x?",
+    choices: ["3", "4", "5", "6"],
+    answer: "4",
+    explanation: "Add the equations: 4x = 16 → x = 4.",
+  },
+  {
+    id: "sm600-7", category: "Math", points: 600, difficulty: "SAT",
+    question: "Which equation represents a parabola opening downward with vertex at (2, 5)?",
+    choices: ["y = (x−2)² + 5", "y = −(x−2)² + 5", "y = (x+2)² − 5", "y = −(x+2)² − 5"],
+    answer: "y = −(x−2)² + 5",
+    explanation: "Vertex form is y = a(x−h)² + k. Negative a opens downward; (h,k) = (2,5) gives y = −(x−2)² + 5.",
+  },
+
+  // ── SAT Math 800 (extra) ───────────────────────────────────────────────────
+  {
+    id: "sm800-4", category: "Math", points: 800, difficulty: "SAT",
+    question: "The polynomial p(x) = x³ − 6x² + 11x − 6. Which of the following is a factor?",
+    choices: ["(x − 4)", "(x − 1)", "(x + 2)", "(x + 3)"],
+    answer: "(x − 1)",
+    explanation: "p(1) = 1 − 6 + 11 − 6 = 0. By the factor theorem, (x − 1) is a factor.",
+  },
+  {
+    id: "sm800-5", category: "Math", points: 800, difficulty: "SAT",
+    question: "A line tangent to the circle x² + y² = 25 at the point (3, 4) has what slope?",
+    choices: ["−4/3", "−3/4", "3/4", "4/3"],
+    answer: "−3/4",
+    explanation: "The radius to (3,4) has slope 4/3. A tangent is perpendicular, so slope = −3/4.",
+  },
+  {
+    id: "sm800-6", category: "Math", points: 800, difficulty: "SAT",
+    question: "If log₂(x) + log₂(x − 2) = 3, what is the value of x?",
+    choices: ["2", "3", "4", "6"],
+    answer: "4",
+    explanation: "log₂(x(x−2)) = 3 → x(x−2) = 8 → x² − 2x − 8 = 0 → (x−4)(x+2) = 0. Since x > 2, x = 4.",
+  },
+  {
+    id: "sm800-7", category: "Math", points: 800, difficulty: "SAT",
+    question: "An investment grows by 6% per year compounded annually. Approximately how many years does it take to double?",
+    choices: ["8", "10", "12", "15"],
+    answer: "12",
+    explanation: "Using the rule of 72: 72 ÷ 6 = 12 years.",
+  },
+
+  // ── SAT Math 1000 (extra) ──────────────────────────────────────────────────
+  {
+    id: "sm1000-4", category: "Math", points: 1000, difficulty: "SAT",
+    question: "If z = 1 + i, what is z³?",
+    choices: ["2 + 2i", "−2 + 2i", "2 − 2i", "−2 − 2i"],
+    answer: "−2 + 2i",
+    explanation: "z² = (1+i)² = 2i. z³ = z² × z = 2i(1+i) = 2i + 2i² = 2i − 2 = −2 + 2i.",
+  },
+  {
+    id: "sm1000-5", category: "Math", points: 1000, difficulty: "SAT",
+    question: "A continuous function f satisfies f(0) = −3 and f(2) = 5. By the Intermediate Value Theorem, which value must f take?",
+    choices: ["−4", "0", "6", "10"],
+    answer: "0",
+    explanation: "IVT guarantees f takes every value between f(0) = −3 and f(2) = 5 on [0,2]. Zero is in [−3, 5].",
+  },
+  {
+    id: "sm1000-6", category: "Math", points: 1000, difficulty: "SAT",
+    question: "How many distinct real solutions does x⁴ − 5x² + 4 = 0 have?",
+    choices: ["0", "2", "3", "4"],
+    answer: "4",
+    explanation: "Let u = x²: u² − 5u + 4 = 0 → (u−1)(u−4) = 0 → u = 1 or 4 → x = ±1 or ±2. Four real solutions.",
+  },
+  {
+    id: "sm1000-7", category: "Math", points: 1000, difficulty: "SAT",
+    question: "The probability that event A occurs is 0.4 and the probability that event B occurs is 0.5. If A and B are independent, what is P(A and B)?",
+    choices: ["0.1", "0.2", "0.45", "0.9"],
+    answer: "0.2",
+    explanation: "For independent events, P(A and B) = P(A) × P(B) = 0.4 × 0.5 = 0.2.",
+  },
+
+  // ── SAT English 200 (extra) ────────────────────────────────────────────────
+  {
+    id: "se200-4", category: "English", points: 200, difficulty: "SAT",
+    question: "Which sentence uses \"affect\" and \"effect\" correctly?",
+    choices: [
+      "The storm will effect the game schedule.",
+      "The effect of the medicine is still unknown.",
+      "What affect did the speech have on voters?",
+      "The new law will effect change immediately.",
+    ],
+    answer: "The effect of the medicine is still unknown.",
+    explanation: "\"Effect\" is typically a noun (result). \"Affect\" is typically a verb (to influence). Only option B uses \"effect\" correctly as a noun.",
+  },
+  {
+    id: "se200-5", category: "English", points: 200, difficulty: "SAT",
+    question: "What does \"ambivalent\" mean?",
+    choices: ["Strongly in favor", "Having mixed or contradictory feelings", "Completely opposed", "Enthusiastic and certain"],
+    answer: "Having mixed or contradictory feelings",
+    explanation: "\"Ambivalent\" describes holding two conflicting attitudes toward something at the same time.",
+  },
+  {
+    id: "se200-6", category: "English", points: 200, difficulty: "SAT",
+    question: "Which sentence correctly uses a comma after an introductory clause?",
+    choices: [
+      "After the game the team celebrated.",
+      "After the game, the team celebrated.",
+      "The team celebrated, after the game.",
+      "After the game the, team celebrated.",
+    ],
+    answer: "After the game, the team celebrated.",
+    explanation: "An introductory adverbial phrase or clause is followed by a comma before the main clause.",
+  },
+  {
+    id: "se200-7", category: "English", points: 200, difficulty: "SAT",
+    question: "Choose the word closest in meaning to \"diligent.\"",
+    choices: ["Careless", "Hasty", "Industrious", "Indifferent"],
+    answer: "Industrious",
+    explanation: "\"Diligent\" and \"industrious\" both mean hardworking and careful in one's work.",
+  },
+
+  // ── SAT English 400 (extra) ────────────────────────────────────────────────
+  {
+    id: "se400-4", category: "English", points: 400, difficulty: "SAT",
+    question: "Which sentence is grammatically correct?",
+    choices: [
+      "The data shows a clear trend.",
+      "The data show a clear trend.",
+      "The data is showing a clear trend.",
+      "Both A and B are correct.",
+    ],
+    answer: "Both A and B are correct.",
+    explanation: "\"Data\" is technically plural (datum singular), so \"show\" is formally correct; however, \"shows\" is now widely accepted. The SAT accepts both.",
+  },
+  {
+    id: "se400-5", category: "English", points: 400, difficulty: "SAT",
+    question: "Which transition best connects: \"The experiment failed three times. ______, the team discovered a critical flaw in the design.\"",
+    choices: ["As a result", "In contrast", "Similarly", "In the process"],
+    answer: "In the process",
+    explanation: "\"In the process\" indicates something discovered along the way, which fits discovering a flaw during repeated failed experiments.",
+  },
+  {
+    id: "se400-6", category: "English", points: 400, difficulty: "SAT",
+    question: "Which is the most effective revision of the underlined portion? \"The new bridge is long in its length and also quite tall.\"",
+    choices: [
+      "is long in its length and also quite tall",
+      "is long and tall",
+      "has a long length and also tallness",
+      "is quite long in length and tall",
+    ],
+    answer: "is long and tall",
+    explanation: "\"Long in its length\" is redundant. The concise revision removes the redundancy.",
+  },
+  {
+    id: "se400-7", category: "English", points: 400, difficulty: "SAT",
+    question: "Which sentence avoids a comma splice?",
+    choices: [
+      "It was late, we decided to stop.",
+      "It was late; we decided to stop.",
+      "It was late, and, we decided to stop.",
+      "It was late we decided to stop.",
+    ],
+    answer: "It was late; we decided to stop.",
+    explanation: "A comma splice joins two independent clauses with only a comma. A semicolon correctly joins them without a conjunction.",
+  },
+
+  // ── SAT English 600 (extra) ────────────────────────────────────────────────
+  {
+    id: "se600-4", category: "English", points: 600, difficulty: "SAT",
+    question: "Passage: \"The scientist's findings were inconclusive — they neither confirmed nor refuted the hypothesis, leaving the question open for further inquiry.\"\n\nThe em-dash functions to:",
+    choices: [
+      "Introduce an unrelated point",
+      "Signal that the scientist was uncertain about her methods",
+      "Elaborate and clarify the meaning of 'inconclusive'",
+      "Contrast the findings with the hypothesis",
+    ],
+    answer: "Elaborate and clarify the meaning of 'inconclusive'",
+    explanation: "The em-dash introduces a clause that explains what \"inconclusive\" means in this context.",
+  },
+  {
+    id: "se600-5", category: "English", points: 600, difficulty: "SAT",
+    question: "A paragraph argues that remote work increases productivity. Which finding most WEAKENS this?",
+    choices: [
+      "Many employees prefer working from home.",
+      "Remote workers report higher job satisfaction.",
+      "A study found collaboration and creativity drop significantly without in-person interaction.",
+      "Companies save money on office space with remote work.",
+    ],
+    answer: "A study found collaboration and creativity drop significantly without in-person interaction.",
+    explanation: "If key components of productivity (creativity, collaboration) decline, this directly challenges the claim that remote work increases overall productivity.",
+  },
+  {
+    id: "se600-6", category: "English", points: 600, difficulty: "SAT",
+    question: "\"The wind howled like a wounded animal.\" This sentence is an example of:",
+    choices: ["Metaphor", "Personification", "Simile", "Alliteration"],
+    answer: "Simile",
+    explanation: "The comparison uses \"like,\" making this a simile rather than a metaphor.",
+  },
+  {
+    id: "se600-7", category: "English", points: 600, difficulty: "SAT",
+    question: "The word \"pragmatic\" most nearly means:",
+    choices: ["Idealistic and visionary", "Practical and focused on real results", "Stubborn and inflexible", "Creative and unconventional"],
+    answer: "Practical and focused on real results",
+    explanation: "\"Pragmatic\" describes a focus on practical approaches over abstract ideals.",
+  },
+
+  // ── SAT English 800 (extra) ────────────────────────────────────────────────
+  {
+    id: "se800-4", category: "English", points: 800, difficulty: "SAT",
+    question: "Passage: \"Rather than viewing failure as an endpoint, resilient individuals treat setbacks as data — information that reveals where effort and strategy must be redirected.\"\n\nThe author's primary claim is that:",
+    choices: [
+      "Failure is inevitable and should be accepted.",
+      "Resilient people reframe failure as useful information for improvement.",
+      "Data analysis is essential for overcoming personal setbacks.",
+      "Strategy is more important than effort in achieving success.",
+    ],
+    answer: "Resilient people reframe failure as useful information for improvement.",
+    explanation: "The passage argues that resilient individuals interpret failure not as an ending but as diagnostic feedback guiding future effort.",
+  },
+  {
+    id: "se800-5", category: "English", points: 800, difficulty: "SAT",
+    question: "\"Either we completely overhaul the education system or students will never learn.\" This argument is an example of:",
+    choices: ["Ad hominem", "False dilemma", "Hasty generalization", "Circular reasoning"],
+    answer: "False dilemma",
+    explanation: "Presenting only two extreme options (complete overhaul or total failure) ignores the many middle-ground possibilities — a false dilemma.",
+  },
+  {
+    id: "se800-6", category: "English", points: 800, difficulty: "SAT",
+    question: "Which sentence best uses an appositive to add information concisely?",
+    choices: [
+      "Marie Curie was a scientist. She was the first woman to win a Nobel Prize.",
+      "Marie Curie, the first woman to win a Nobel Prize, made groundbreaking contributions to science.",
+      "Marie Curie won a Nobel Prize and was a woman who made scientific contributions.",
+      "Being the first woman to win a Nobel Prize, and Marie Curie was a scientist.",
+    ],
+    answer: "Marie Curie, the first woman to win a Nobel Prize, made groundbreaking contributions to science.",
+    explanation: "The appositive \"the first woman to win a Nobel Prize\" adds information efficiently within the sentence, avoiding two separate sentences.",
+  },
+  {
+    id: "se800-7", category: "English", points: 800, difficulty: "SAT",
+    question: "Passage: \"Economists who advocate for free markets assume that rational actors make optimal decisions; behavioral economists challenge this, showing that cognitive biases systematically distort human judgment.\"\n\nThe primary tension in the passage is between:",
+    choices: [
+      "Economics as a science versus economics as a social study",
+      "The assumption of rationality and the evidence of cognitive bias",
+      "Free markets and government regulation",
+      "Individual decisions and collective economic outcomes",
+    ],
+    answer: "The assumption of rationality and the evidence of cognitive bias",
+    explanation: "The sentence contrasts the free-market assumption (rational actors) with behavioral economics evidence (cognitive biases), making this the central tension.",
+  },
+
+  // ── SAT English 1000 (extra) ───────────────────────────────────────────────
+  {
+    id: "se1000-4", category: "English", points: 1000, difficulty: "SAT",
+    question: "Passage: \"The novel refuses easy resolution: its ambiguous ending frustrates readers who seek closure while rewarding those who recognize that uncertainty is the point.\"\n\nThe phrase 'uncertainty is the point' suggests the author believes:",
+    choices: [
+      "The novel is poorly constructed.",
+      "Ambiguity in literature reflects the complexity of human experience.",
+      "Readers who want closure misunderstand fiction.",
+      "The author intentionally confused readers to spark debate.",
+    ],
+    answer: "Ambiguity in literature reflects the complexity of human experience.",
+    explanation: "Framing uncertainty as intentional and rewarding implies the author sees ambiguity as artistically meaningful, not a flaw.",
+  },
+  {
+    id: "se1000-5", category: "English", points: 1000, difficulty: "SAT",
+    question: "Passage: \"Critics argue that standardized tests are culturally biased; proponents insist they provide an objective measure that eliminates the subjectivity of grades.\"\n\nWhich addition most strengthens the critics' position?",
+    choices: [
+      "Many countries use standardized tests for college admissions.",
+      "Research shows students from higher-income families score 200+ points higher on average, even after controlling for academic ability.",
+      "Standardized tests are taken by millions of students each year.",
+      "Teachers often spend time preparing students for standardized tests.",
+    ],
+    answer: "Research shows students from higher-income families score 200+ points higher on average, even after controlling for academic ability.",
+    explanation: "Data showing score gaps persist even when academic ability is held constant directly supports the claim of bias unrelated to merit.",
+  },
+  {
+    id: "se1000-6", category: "English", points: 1000, difficulty: "SAT",
+    question: "Passage: \"The historian's account is meticulous in its detail but ultimately undermined by its reliance on a single archival source — a source whose provenance remains disputed.\"\n\nThe author's primary criticism of the historian is:",
+    choices: [
+      "The account contains too much unnecessary detail.",
+      "The historian ignored important recent scholarship.",
+      "The account's credibility depends on a source whose authenticity is uncertain.",
+      "Single sources are never sufficient for historical writing.",
+    ],
+    answer: "The account's credibility depends on a source whose authenticity is uncertain.",
+    explanation: "\"Provenance remains disputed\" means the source's origin/authenticity is questioned, which is the specific flaw the author identifies.",
+  },
+  {
+    id: "se1000-7", category: "English", points: 1000, difficulty: "SAT",
+    question: "Which revision best improves the logical flow? Original: \"Exercise is beneficial. Many people don't exercise. Gyms are expensive.\"",
+    choices: [
+      "Exercise is beneficial; many people don't exercise; gyms are expensive.",
+      "Although exercise is beneficial, many people avoid it — in part because gym memberships are expensive.",
+      "Exercise is beneficial, and many people don't exercise because gyms are expensive.",
+      "Gyms are expensive; exercise is beneficial; many people don't exercise.",
+    ],
+    answer: "Although exercise is beneficial, many people avoid it — in part because gym memberships are expensive.",
+    explanation: "This revision uses a concessive clause to show the contrast and connects cost as a reason for non-exercise, creating logical flow.",
+  },
+
 ];
 
 export const POINT_VALUES = [200, 400, 600, 800, 1000] as const;
@@ -725,16 +1370,19 @@ export function getDailyQuestions(difficulty: "PSAT" | "SAT"): {
     return a;
   };
 
-  // Each (difficulty, category, points) slot gets its own independent seed so
-  // every slot rotates through its question pool independently each day.
-  const pickSeeded = (category: "Math" | "English"): Question[] =>
-    POINT_VALUES.map((pts) => {
-      const slotSeed = (dateSeed ^ fnv(`${difficulty}-${category}-${pts}`)) >>> 0;
-      const pool = QUESTIONS.filter(
-        (q) => q.category === category && q.difficulty === difficulty && q.points === pts
-      );
-      return shuffle(pool, slotSeed)[0];
-    }).filter(Boolean) as Question[];
+  // Shuffle the entire category pool each day and pick the first 5 questions.
+  // Sorting by original points before assigning tile values keeps easier
+  // questions on lower-value tiles. With 35+ questions per category this
+  // produces a practically unique board every day.
+  const pickSeeded = (category: "Math" | "English"): Question[] => {
+    const pool = QUESTIONS.filter(
+      (q) => q.category === category && q.difficulty === difficulty
+    );
+    const categorySeed = (dateSeed ^ fnv(`${difficulty}-${category}`)) >>> 0;
+    const selected = shuffle(pool, categorySeed).slice(0, POINT_VALUES.length);
+    selected.sort((a, b) => a.points - b.points);
+    return POINT_VALUES.map((pts, i) => ({ ...selected[i], points: pts as 200 | 400 | 600 | 800 | 1000 }));
+  };
 
   return {
     math: pickSeeded("Math"),
