@@ -1370,19 +1370,24 @@ export function getDailyQuestions(difficulty: "PSAT" | "SAT"): {
     return a;
   };
 
-  // Shuffle the entire category pool each day and pick the first 5 questions.
-  // Sorting by original points before assigning tile values keeps easier
-  // questions on lower-value tiles. With 35+ questions per category this
-  // produces a practically unique board every day.
-  const pickSeeded = (category: "Math" | "English"): Question[] => {
-    const pool = QUESTIONS.filter(
-      (q) => q.category === category && q.difficulty === difficulty
-    );
-    const categorySeed = (dateSeed ^ fnv(`${difficulty}-${category}`)) >>> 0;
-    const selected = shuffle(pool, categorySeed).slice(0, POINT_VALUES.length);
-    selected.sort((a, b) => a.points - b.points);
-    return POINT_VALUES.map((pts, i) => ({ ...selected[i], points: pts as 200 | 400 | 600 | 800 | 1000 }));
-  };
+  // Each slot (difficulty × category × points) has its own stable rotation.
+  // The pool for that slot is shuffled once with a fixed seed, then we advance
+  // one position per day — guaranteeing a different question in every slot
+  // every single day until the pool is exhausted, then it cycles.
+  const dayIndex = Math.floor(
+    (new Date(today).getTime() - new Date("2024-01-01").getTime()) / 86400000
+  );
+
+  const pickSeeded = (category: "Math" | "English"): Question[] =>
+    POINT_VALUES.map((pts) => {
+      const pool = QUESTIONS.filter(
+        (q) => q.category === category && q.difficulty === difficulty && q.points === pts
+      );
+      // Stable shuffle order unique to this slot
+      const slotSeed = fnv(`${difficulty}-${category}-${pts}`);
+      const rotation = shuffle(pool, slotSeed);
+      return rotation[dayIndex % rotation.length];
+    }).filter(Boolean) as Question[];
 
   return {
     math: pickSeeded("Math"),
