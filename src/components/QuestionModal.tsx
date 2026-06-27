@@ -56,12 +56,12 @@ export default function QuestionModal({ question, onClose }: Props) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4"
       style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(4px)" }}
       onClick={(e) => e.stopPropagation()}
     >
       <div
-        className="relative w-full max-w-2xl rounded-2xl overflow-hidden"
+        className="relative w-full max-w-2xl rounded-2xl overflow-hidden my-auto"
         style={{
           background: "linear-gradient(160deg, #0d1628 0%, #070d1c 100%)",
           border: "1px solid rgba(59,130,246,0.25)",
