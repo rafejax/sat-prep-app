@@ -5,11 +5,11 @@ import "./globals.css";
 const sora = Sora({ variable: "--font-sora", subsets: ["latin"], weight: ["400", "600", "700", "800"] });
 
 export const metadata: Metadata = {
-  title: "SATisfied – Daily SAT & PSAT Practice",
-  description: "SATisfied is a game show-style daily SAT and PSAT practice app. Answer 10 fresh Math and English questions every day, compete on the leaderboard, and boost your score — one day at a time.",
+  title: "SATisfied SAT Prep – Daily SAT & PSAT Practice",
+  description: "SATisfied SAT Prep is a game show-style daily SAT and PSAT practice app. Answer 10 fresh Math and English questions every day, compete on the leaderboard, and boost your score — one day at a time.",
   metadataBase: new URL("https://www.satisfiedsatprep.com"),
   openGraph: {
-    title: "SATisfied – Daily SAT & PSAT Practice",
+    title: "SATisfied SAT Prep – Daily SAT & PSAT Practice",
     description: "Answer 10 fresh SAT/PSAT questions every day in a game show-style format. Compete on the leaderboard and track your progress.",
     url: "https://www.satisfiedsatprep.com",
     siteName: "SATisfied",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SATisfied – Daily SAT & PSAT Practice",
+    title: "SATisfied SAT Prep – Daily SAT & PSAT Practice",
     description: "Answer 10 fresh SAT/PSAT questions every day in a game show-style format. Compete on the leaderboard and track your progress.",
   },
   robots: {
